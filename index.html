@@ -149,10 +149,10 @@
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][darwin][aarch64]"></td>
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][linux][x86_64]"></td>
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][linux][aarch64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][darwin][x86_64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][darwin][aarch64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][linux][x86_64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][linux][aarch64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][testDep][darwin][x86_64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][testDep][darwin][aarch64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][testDep][linux][x86_64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][testDep][linux][aarch64]"></td>
                                     <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-t1').remove();generate();"><i class="bi bi-trash3"></i></button></td>
                                 </tr>
                                 <tr id="dependency-row-t2">
@@ -166,10 +166,10 @@
                                   <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][darwin][aarch64]" checked></td>
                                   <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][linux][x86_64]" checked></td>
                                   <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][linux][aarch64]" checked></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][darwin][x86_64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][darwin][aarch64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][linux][x86_64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][linux][aarch64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][testDep][darwin][x86_64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][testDep][darwin][aarch64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][testDep][linux][x86_64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][testDep][linux][aarch64]"></td>
                                   <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-t2').remove();generate();"><i class="bi bi-trash3"></i></button></td>
                               </tr>
                                 </tbody>
@@ -213,6 +213,94 @@
                         </table>
                       </div>
                     </fieldset>
+                    <fieldset>
+                      <legend>Build envrimoment</legend>
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="env">
+                          <thead class="fw-semibold">
+                            <tr>
+                              <td>Variable</td>
+                              <td>Value</td>
+                              <td style="width: 15%">Remove</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr id="build-env-row-t1">
+                              <td>
+                                <input type="text" class="form-control" placeholder="Variable" name="build[env][t1][variable]" value="ARGS">
+                              </td>
+                              <td>
+                                <textarea class="form-control" name="build[env][t1][value]">--prefix="{{prefix}}"</textarea>
+                              </td>
+                              <td>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="$('#build-env-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <td colspan="3">
+                                <button type="button" class="btn btn-sm btn-dark" onclick="addBuildEnv('#env')"><i class="bi bi-plus-lg"></i> Add variable</button>
+                              </td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Test script</legend>
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="test">
+                            <thead class="fw-semibold">
+                              <tr>
+                                <td>Command</td>
+                                <td style="width: 15%">Remove</td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr id="build-script-row-t1">
+                                <td>
+                                  <input type="text" class="form-control" placeholder="Command" name="test[script][t1]" value="foo --version | grep {{version}}">
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-sm btn-danger" onclick="$('#test-script-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="2">
+                                  <button type="button" class="btn btn-sm btn-dark" onclick="addTestCommand('#test')"><i class="bi bi-plus-lg"></i> Add command</button>
+                                </td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </fieldset>
+                      <fieldset>
+                        <legend>Test envrimoment</legend>
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="testEnv">
+                            <thead class="fw-semibold">
+                              <tr>
+                                <td>Variable</td>
+                                <td>Value</td>
+                                <td style="width: 15%">Remove</td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="3">
+                                  <button type="button" class="btn btn-sm btn-dark" onclick="addTestEnv('#testEnv')"><i class="bi bi-plus-lg"></i> Add variable</button>
+                                </td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </fieldset>
                 </form>
             </div>
             <div class="col-md-12">
