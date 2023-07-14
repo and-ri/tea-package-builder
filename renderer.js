@@ -1,6 +1,9 @@
+var pantry;
+
 // Document ready
 $(function () {
   generate();
+  getPantry();
   $(".hide-switch").on("click", function () {
     if (this.checked) {
       $(this).parent().next(".hide").slideDown();
@@ -55,7 +58,7 @@ const addStrip = (element) => {
 const addDependency = (element) => {
   let html = `
           <tr id="dependency-row-${dep_row}">
-                <td><input type="text" class="form-control form-control-sm" placeholder="Name" name="dependencies[${dep_row}][value]"></td>
+                <td class="position-relative"><input type="text" class="form-control form-control-sm autocomplete" placeholder="Name" name="dependencies[${dep_row}][value]"></td>
                 <td><input type="text" class="form-control form-control-sm" placeholder="Version" name="dependencies[${dep_row}][version]"></td>
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][darwin][x86_64]"></td>
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][darwin][aarch64]"></td>
@@ -83,6 +86,28 @@ const addDependency = (element) => {
   });
   $("textarea").on("change", function () {
     generate();
+  });
+
+  $('.autocomplete').on('keyup', function() {
+    $(this).next('.autocomplete-result').remove();
+    if ($(this).val().length > 1) {
+
+      result = autocomplete($(this).val());
+      
+      html = '<div class="autocomplete-result position-absolute start-0 bg-light mt-3 p-3 rounded-3">';
+
+      if (result.length > 0) {
+        result.map((item) => {
+          html += `<div><button type="button" class="btn btn-sm border-0" onclick="$(this).parent().parent().parent().find('.autocomplete').val('${item}');$(this).parent().parent().remove();generate()">${item}</button></div>`;
+        });
+      } else {
+        html += `<div>No results!</div>`;
+      }
+
+      html += '</div>';
+
+      $(this).after(html);
+    }
   });
 
   dep_row++;
@@ -594,12 +619,10 @@ const generate = () => {
       ) {
         yml += "  dependencies:\n";
       }
-  
+
       if (Object.keys(build.all).length > 0) {
         build.all.map((item) => {
-          yml += `    ${item.value}: ${
-            item.version ? item.version : "'*'"
-          }\n`;
+          yml += `    ${item.value}: ${item.version ? item.version : "'*'"}\n`;
         });
       }
       if (Object.keys(build.darwin).length > 0) {
@@ -665,9 +688,9 @@ const generate = () => {
       for (var key in formData.build.env) {
         if (formData.build.env.hasOwnProperty(key)) {
           var item = formData.build.env[key];
-  
+
           let values = item.value.split(/\r\n|\r|\n/g);
-    
+
           if (values.length > 1) {
             yml += `    ${item.variable}:\n`;
             values.map((item) => {
@@ -682,7 +705,7 @@ const generate = () => {
   }
 
   if (formData.provides) {
-    yml += 'provides:\n';
+    yml += "provides:\n";
 
     for (var key in formData.provides) {
       if (formData.provides.hasOwnProperty(key)) {
@@ -691,7 +714,6 @@ const generate = () => {
         yml += `  - bin/${item}\n`;
       }
     }
-
   }
 
   if (formData.test) {
@@ -723,7 +745,10 @@ const generate = () => {
               testDep.all.push({ value: item.value, version: item.version });
             } else {
               if (elem.darwin.x86_64 && elem.darwin.aarch64) {
-                testDep.darwin.push({ value: item.value, version: item.version });
+                testDep.darwin.push({
+                  value: item.value,
+                  version: item.version,
+                });
                 elem.linux.x86_64
                   ? testDep.linux_x86_64.push({
                       value: item.value,
@@ -737,7 +762,10 @@ const generate = () => {
                     })
                   : null;
               } else if (elem.linux.x86_64 && elem.linux.aarch64) {
-                testDep.linux.push({ value: item.value, version: item.version });
+                testDep.linux.push({
+                  value: item.value,
+                  version: item.version,
+                });
                 elem.darwin.x86_64
                   ? testDep.darwin_x86_64.push({
                       value: item.value,
@@ -830,57 +858,43 @@ const generate = () => {
 
     if (Object.keys(testDep.all).length > 0) {
       testDep.all.map((item) => {
-        yml += `    ${item.value}: ${
-          item.version ? item.version : "'*'"
-        }\n`;
+        yml += `    ${item.value}: ${item.version ? item.version : "'*'"}\n`;
       });
     }
     if (Object.keys(testDep.darwin).length > 0) {
       yml += "    darwin:\n";
       testDep.darwin.map((item) => {
-        yml += `      ${item.value}: ${
-          item.version ? item.version : "'*'"
-        }\n`;
+        yml += `      ${item.value}: ${item.version ? item.version : "'*'"}\n`;
       });
     }
     if (Object.keys(testDep.linux).length > 0) {
       yml += "    linux:\n";
       testDep.linux.map((item) => {
-        yml += `      ${item.value}: ${
-          item.version ? item.version : "'*'"
-        }\n`;
+        yml += `      ${item.value}: ${item.version ? item.version : "'*'"}\n`;
       });
     }
     if (Object.keys(testDep.darwin_x86_64).length > 0) {
       yml += "    darwin/x86-64:\n";
       testDep.darwin_x86_64.map((item) => {
-        yml += `      ${item.value}: ${
-          item.version ? item.version : "'*'"
-        }\n`;
+        yml += `      ${item.value}: ${item.version ? item.version : "'*'"}\n`;
       });
     }
     if (Object.keys(testDep.darwin_aarch64).length > 0) {
       yml += "    darwin/aarch64:\n";
       testDep.darwin_aarch64.map((item) => {
-        yml += `      ${item.value}: ${
-          item.version ? item.version : "'*'"
-        }\n`;
+        yml += `      ${item.value}: ${item.version ? item.version : "'*'"}\n`;
       });
     }
     if (Object.keys(testDep.linux_x86_64).length > 0) {
       yml += "    linux/x86-64:\n";
       testDep.linux_x86_64.map((item) => {
-        yml += `      ${item.value}: ${
-          item.version ? item.version : "'*'"
-        }\n`;
+        yml += `      ${item.value}: ${item.version ? item.version : "'*'"}\n`;
       });
     }
     if (Object.keys(testDep.linux_aarch64).length > 0) {
       yml += "    linux/aarch64:\n";
       testDep.linux_aarch64.map((item) => {
-        yml += `      ${item.value}: ${
-          item.version ? item.version : "'*'"
-        }\n`;
+        yml += `      ${item.value}: ${item.version ? item.version : "'*'"}\n`;
       });
     }
 
@@ -898,9 +912,9 @@ const generate = () => {
       for (var key in formData.test.env) {
         if (formData.test.env.hasOwnProperty(key)) {
           var item = formData.test.env[key];
-  
+
           let values = item.value.split(/\r\n|\r|\n/g);
-    
+
           if (values.length > 1) {
             yml += `    ${item.variable}:\n`;
             values.map((item) => {
@@ -918,3 +932,32 @@ const generate = () => {
 
   $("#command > pre").html(`pkg init ${formData.package.name}`);
 };
+
+const getPantry = () => {
+
+  const url = "https://app.tea.xyz/v0/packages/";
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      pantry = data;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
+};
+
+
+const autocomplete = (text) => {
+
+  let search = [];
+
+  const filteredArray = pantry.filter(item => item.includes(text));
+
+  filteredArray.slice(0, 10).forEach((item) => {
+    search.push(item);
+  });
+
+  return search;
+}
