@@ -19,18 +19,18 @@
                     <fieldset>
                         <legend>Package info</legend>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="Name" name="package[name]" value="foo">
+                            <input type="text" class="form-control" placeholder="Name" name="package[name]" value="">
                             <label>Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="Display name" name="package[display_name]" value="libfoo">
+                            <input type="text" class="form-control" placeholder="Display name" name="package[display_name]" value="">
                             <label>Display name</label>
                         </div>
                     </fieldset>
                     <fieldset>
                         <legend>Distributable</legend>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="URL" name="package[url]" value="https://foo.bar/foo-{{version}}.tar.gz">
+                            <input type="text" class="form-control" placeholder="URL" name="package[url]" value="">
                             <label>URL</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -49,24 +49,24 @@
                             <label>Type</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="Value" name="version[value]" value="https://foo.bar/">
+                            <input type="text" class="form-control" placeholder="Value" name="version[value]" value="">
                             <label>Value</label>
                         </div>
                         <div class="bg-light rounded-3 p-3 border mb-3">
                             <p class="fs-5">Need match?</p>
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input hide-switch" type="checkbox" role="switch" name="match[enabled]" checked>
+                                <input class="form-check-input hide-switch" type="checkbox" role="switch" name="match[enabled]">
                                 <label class="form-check-label"></label>
                             </div>
                             <div class="form-floating mb-3 hide" style="display:block">
-                                <input type="text" class="form-control" placeholder="Value" name="match[value]" value="foo-\d+\.\d+\.\d+\.tar\.gz$">
+                                <input type="text" class="form-control" placeholder="Value" name="match[value]" value="">
                                 <label>Value</label>
                             </div>
                         </div>
                         <div class="bg-light rounded-3 p-3 border mb-3">
                             <p class="fs-5">Need strip?</p>
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input hide-switch" type="checkbox" role="switch" name="stripe[enabled]" checked>
+                                <input class="form-check-input hide-switch" type="checkbox" role="switch" name="stripe[enabled]">
                                 <label class="form-check-label"></label>
                             </div>
                             <div class="table-responsive hide" style="display: block;">
@@ -78,14 +78,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr id="strip-row-t1">
-                                            <td><input type="text" class="form-control form-control-sm" placeholder="Value" name="stripe[items][t1][value]" value="^foo-"></td>
-                                            <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#strip-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
-                                        </tr>
-                                        <tr id="strip-row-t2">
-                                            <td><input type="text" class="form-control form-control-sm" placeholder="Value" name="stripe[items][t2][value]" value="\.tar\.gz$"></td>
-                                            <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#strip-row-t2').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
-                                        </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -138,40 +130,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr id="dependency-row-t1">
-                                    <td><input type="text" class="form-control form-control-sm" placeholder="Name" name="dependencies[t1][value]" value="x.org/x11"></td>
-                                    <td><input type="text" class="form-control form-control-sm" placeholder="Version" name="dependencies[t1][version]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][darwin][x86_64]" checked></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][darwin][aarch64]" checked></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][linux][x86_64]" checked></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][linux][aarch64]" checked></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][darwin][x86_64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][darwin][aarch64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][linux][x86_64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][linux][aarch64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][testDep][darwin][x86_64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][testDep][darwin][aarch64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][testDep][linux][x86_64]"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][testDep][linux][aarch64]"></td>
-                                    <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-t1').remove();generate();"><i class="bi bi-trash3"></i></button></td>
-                                </tr>
-                                <tr id="dependency-row-t2">
-                                  <td><input type="text" class="form-control form-control-sm" placeholder="Name" name="dependencies[t2][value]" value="tea.xyz/gx/cc"></td>
-                                  <td><input type="text" class="form-control form-control-sm" placeholder="Version" name="dependencies[t2][version]" value="c99"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][runtime][darwin][x86_64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][runtime][darwin][aarch64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][runtime][linux][x86_64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][runtime][linux][aarch64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][darwin][x86_64]" checked></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][darwin][aarch64]" checked></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][linux][x86_64]" checked></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][linux][aarch64]" checked></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][testDep][darwin][x86_64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][testDep][darwin][aarch64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][testDep][linux][x86_64]"></td>
-                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][testDep][linux][aarch64]"></td>
-                                  <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-t2').remove();generate();"><i class="bi bi-trash3"></i></button></td>
-                              </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -194,14 +152,6 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr id="build-script-row-t1">
-                              <td>
-                                <input type="text" class="form-control" placeholder="Command" name="build[script][t1]" value="./configure $ARGS">
-                              </td>
-                              <td>
-                                <button type="button" class="btn btn-sm btn-danger" onclick="$('#build-script-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button>
-                              </td>
-                            </tr>
                           </tbody>
                           <tfoot>
                             <tr>
@@ -225,17 +175,6 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr id="build-env-row-t1">
-                              <td>
-                                <input type="text" class="form-control" placeholder="Variable" name="build[env][t1][variable]" value="ARGS">
-                              </td>
-                              <td>
-                                <textarea class="form-control" name="build[env][t1][value]">--prefix="{{prefix}}"</textarea>
-                              </td>
-                              <td>
-                                <button type="button" class="btn btn-sm btn-danger" onclick="$('#build-env-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button>
-                              </td>
-                            </tr>
                           </tbody>
                           <tfoot>
                             <tr>
@@ -258,10 +197,6 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr id="provides-row-t1">
-                                <td><input type="text" class="form-control" name="provides[t1]" placeholder="Binary" value="foo"></td>
-                                <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#provides-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
-                              </tr>
                             </tbody>
                             <tfoot>
                               <tr>
@@ -284,14 +219,6 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr id="build-script-row-t1">
-                                <td>
-                                  <input type="text" class="form-control" placeholder="Command" name="test[script][t1]" value="foo --version | grep {{version}}">
-                                </td>
-                                <td>
-                                  <button type="button" class="btn btn-sm btn-danger" onclick="$('#test-script-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button>
-                                </td>
-                              </tr>
                             </tbody>
                             <tfoot>
                               <tr>

@@ -282,7 +282,7 @@ const generate = () => {
     yml += `    match: /${formData.match.value}/\n`;
   }
 
-  if (formData.stripe.enabled) {
+  if (formData.stripe && formData.stripe.enabled) {
     yml += "    strip:\n";
 
     if (formData.stripe.items) {
