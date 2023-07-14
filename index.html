@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles.css">
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 
 <body>
-    <div class="container-fluid my-5">
+    <div class="container my-5">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <form id="config">
                     <fieldset>
                         <legend>Package info</legend>
@@ -105,6 +105,7 @@
                                 <thead class="small fw-semibold">
                                     <tr>
                                         <td rowspan="3">Package</td>
+                                        <td rowspan="3">Version</td>
                                         <td colspan="4">Runtime</td>
                                         <td colspan="4">Build</td>
                                         <td colspan="4">Test</td>
@@ -138,20 +139,38 @@
                                 <tbody>
                                 <tr id="dependency-row-t1">
                                     <td><input type="text" class="form-control" placeholder="Name" name="dependencies[t1][value]" value="x.org/x11"></td>
+                                    <td><input type="text" class="form-control" placeholder="Version" name="dependencies[t1][version]"></td>
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][darwin][x86_64]" checked></td>
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][darwin][aarch64]" checked></td>
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][linux][x86_64]" checked></td>
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][linux][aarch64]" checked></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
-                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][darwin][x86_64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][darwin][aarch64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][linux][x86_64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][build][linux][aarch64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][darwin][x86_64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][darwin][aarch64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][linux][x86_64]"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][linux][aarch64]"></td>
                                     <td><button type="button" class="btn btn-danger" onclick="$('#dependency-row-t1').remove()">-</button></td>
                                 </tr>
+                                <tr id="dependency-row-t2">
+                                  <td><input type="text" class="form-control" placeholder="Name" name="dependencies[t2][value]" value="tea.xyz/gx/cc"></td>
+                                  <td><input type="text" class="form-control" placeholder="Version" name="dependencies[t2][version]" value="c99"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][runtime][darwin][x86_64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][runtime][darwin][aarch64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][runtime][linux][x86_64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][runtime][linux][aarch64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][darwin][x86_64]" checked></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][darwin][aarch64]" checked></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][linux][x86_64]" checked></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][build][linux][aarch64]" checked></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][darwin][x86_64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][darwin][aarch64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][linux][x86_64]"></td>
+                                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][linux][aarch64]"></td>
+                                  <td><button type="button" class="btn btn-danger" onclick="$('#dependency-row-t2').remove()">-</button></td>
+                              </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -165,7 +184,7 @@
                     </fieldset>
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div>1. Run command:</div>
                 <code id="command">
                     <pre>

@@ -1,3 +1,9 @@
-/* styles.css */
-
-/* Add styles here to customize the appearance of your app */
+input[role='switch'] + label:before {
+    content: 'No'
+}
+input[role='switch']:checked + label:before {
+    content: 'Yes'
+}
+.hide {
+    display: none;
+}
