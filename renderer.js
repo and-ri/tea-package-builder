@@ -25,6 +25,7 @@ let build_row = 0;
 let build_env_row = 0;
 let test_row = 0;
 let test_env_row = 0;
+let binary_row = 0;
 
 const addStrip = (element) => {
   let html = `
@@ -135,6 +136,31 @@ const addBuildEnv = (element) => {
   });
 
   build_env_row++;
+
+  generate();
+};
+
+const addBinary = (element) => {
+  let html = `
+    <tr id="provides-row-${binary_row}">
+      <td><input type="text" class="form-control" name="provides[${binary_row}]" placeholder="Binary" value=""></td>
+      <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#provides-row-${binary_row}').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
+    </tr>
+      `;
+
+  $(`${element} > tbody`).append(html);
+
+  $("input").on("change", function () {
+    generate();
+  });
+  $("select").on("change", function () {
+    generate();
+  });
+  $("textarea").on("change", function () {
+    generate();
+  });
+
+  binary_row++;
 
   generate();
 };
@@ -653,6 +679,19 @@ const generate = () => {
         }
       }
     }
+  }
+
+  if (formData.provides) {
+    yml += 'provides:\n';
+
+    for (var key in formData.provides) {
+      if (formData.provides.hasOwnProperty(key)) {
+        var item = formData.provides[key];
+
+        yml += `  - bin/${item}\n`;
+      }
+    }
+
   }
 
   if (formData.test) {

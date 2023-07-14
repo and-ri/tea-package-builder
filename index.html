@@ -248,6 +248,32 @@
                       </div>
                     </fieldset>
                     <fieldset>
+                        <legend>Provides</legend>
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="provides">
+                            <thead class="fw-semibold">
+                              <tr>
+                                <td>Binary</td>
+                                <td style="width: 15%">Remove</td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr id="provides-row-t1">
+                                <td><input type="text" class="form-control" name="provides[t1]" placeholder="Binary" value="foo"></td>
+                                <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#provides-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="2">
+                                  <button type="button" class="btn btn-sm btn-dark" onclick="addBinary('#provides')"><i class="bi bi-plus-lg"></i> Add binary</button>
+                                </td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </fieldset>
+                    <fieldset>
                         <legend>Test script</legend>
                         <div class="table-responsive">
                           <table class="table table-bordered" id="test">
