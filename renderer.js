@@ -245,20 +245,18 @@ let testDep = {};
 
 const generate = () => {
   let formData = {};
-  $("#config")
-    .serializeArray()
-    .forEach(function (item) {
-      var parts = item.name.split("[");
-      var obj = formData;
-      for (var i = 0; i < parts.length - 1; i++) {
-        var part = parts[i].replace(/]/g, "");
-        if (!obj[part]) {
-          obj[part] = {};
-        }
-        obj = obj[part];
+  $("#config").serializeArray().forEach(function (item) {
+    var parts = item.name.split("[");
+    var obj = formData;
+    for (var i = 0; i < parts.length - 1; i++) {
+      var part = parts[i].replace(/]/g, "");
+      if (!obj[part]) {
+        obj[part] = {};
       }
-      obj[parts[parts.length - 1].replace(/]/g, "")] = item.value;
-    });
+      obj = obj[part];
+    }
+    obj[parts[parts.length - 1].replace(/]/g, "")] = item.value;
+  });
 
   let yml = "";
 
@@ -608,71 +606,71 @@ const generate = () => {
           }
         }
       }
-      if (
-        Object.keys(build.all).length > 0 ||
-        Object.keys(build.darwin).length > 0 ||
-        Object.keys(build.linux).length > 0 ||
-        Object.keys(build.darwin_x86_64).length > 0 ||
-        Object.keys(build.darwin_aarch64).length > 0 ||
-        Object.keys(build.linux_x86_64).length > 0 ||
-        Object.keys(build.linux_aarch64).length > 0
-      ) {
-        yml += "  dependencies:\n";
-      }
+    }
+    if (
+      Object.keys(build.all).length > 0 ||
+      Object.keys(build.darwin).length > 0 ||
+      Object.keys(build.linux).length > 0 ||
+      Object.keys(build.darwin_x86_64).length > 0 ||
+      Object.keys(build.darwin_aarch64).length > 0 ||
+      Object.keys(build.linux_x86_64).length > 0 ||
+      Object.keys(build.linux_aarch64).length > 0
+    ) {
+      yml += "  dependencies:\n";
+    }
 
-      if (Object.keys(build.all).length > 0) {
-        build.all.map((item) => {
-          yml += `    ${item.value}: ${item.version ? item.version : "'*'"}\n`;
-        });
-      }
-      if (Object.keys(build.darwin).length > 0) {
-        yml += "    darwin:\n";
-        build.darwin.map((item) => {
-          yml += `      ${item.value}: ${
-            item.version ? item.version : "'*'"
-          }\n`;
-        });
-      }
-      if (Object.keys(build.linux).length > 0) {
-        yml += "    linux:\n";
-        build.linux.map((item) => {
-          yml += `      ${item.value}: ${
-            item.version ? item.version : "'*'"
-          }\n`;
-        });
-      }
-      if (Object.keys(build.darwin_x86_64).length > 0) {
-        yml += "    darwin/x86-64:\n";
-        build.darwin_x86_64.map((item) => {
-          yml += `      ${item.value}: ${
-            item.version ? item.version : "'*'"
-          }\n`;
-        });
-      }
-      if (Object.keys(build.darwin_aarch64).length > 0) {
-        yml += "    darwin/aarch64:\n";
-        build.darwin_aarch64.map((item) => {
-          yml += `      ${item.value}: ${
-            item.version ? item.version : "'*'"
-          }\n`;
-        });
-      }
-      if (Object.keys(build.linux_x86_64).length > 0) {
-        yml += "    linux/x86-64:\n";
-        build.linux_x86_64.map((item) => {
-          yml += `      ${item.value}: ${
-            item.version ? item.version : "'*'"
-          }\n`;
-        });
-      }
-      if (Object.keys(build.linux_aarch64).length > 0) {
-        yml += "    linux/aarch64:\n";
-        build.linux_aarch64.map((item) => {
-          yml += `      ${item.value}: ${
-            item.version ? item.version : "'*'"
-          }\n`;
-        });
-      }
+    if (Object.keys(build.all).length > 0) {
+      build.all.map((item) => {
+        yml += `    ${item.value}: ${item.version ? item.version : "'*'"}\n`;
+      });
+    }
+    if (Object.keys(build.darwin).length > 0) {
+      yml += "    darwin:\n";
+      build.darwin.map((item) => {
+        yml += `      ${item.value}: ${
+          item.version ? item.version : "'*'"
+        }\n`;
+      });
+    }
+    if (Object.keys(build.linux).length > 0) {
+      yml += "    linux:\n";
+      build.linux.map((item) => {
+        yml += `      ${item.value}: ${
+          item.version ? item.version : "'*'"
+        }\n`;
+      });
+    }
+    if (Object.keys(build.darwin_x86_64).length > 0) {
+      yml += "    darwin/x86-64:\n";
+      build.darwin_x86_64.map((item) => {
+        yml += `      ${item.value}: ${
+          item.version ? item.version : "'*'"
+        }\n`;
+      });
+    }
+    if (Object.keys(build.darwin_aarch64).length > 0) {
+      yml += "    darwin/aarch64:\n";
+      build.darwin_aarch64.map((item) => {
+        yml += `      ${item.value}: ${
+          item.version ? item.version : "'*'"
+        }\n`;
+      });
+    }
+    if (Object.keys(build.linux_x86_64).length > 0) {
+      yml += "    linux/x86-64:\n";
+      build.linux_x86_64.map((item) => {
+        yml += `      ${item.value}: ${
+          item.version ? item.version : "'*'"
+        }\n`;
+      });
+    }
+    if (Object.keys(build.linux_aarch64).length > 0) {
+      yml += "    linux/aarch64:\n";
+      build.linux_aarch64.map((item) => {
+        yml += `      ${item.value}: ${
+          item.version ? item.version : "'*'"
+        }\n`;
+      });
     }
     if (formData.build && formData.build.script) {
       yml += "  script:\n";
