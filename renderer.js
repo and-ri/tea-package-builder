@@ -22,8 +22,8 @@ let dep_row = 0;
 const addStrip = (element) => {
   let html = `
           <tr id="strip-row-${strip_row}">
-              <td><input type="text" class="form-control" placeholder="Value" name="stripe[items][${strip_row}][value]"></td>
-              <td><button type="button" class="btn btn-danger" onclick="$('#strip-row-${strip_row}').remove()">Remove</button></td>
+              <td><input type="text" class="form-control form-control-sm" placeholder="Value" name="stripe[items][${strip_row}][value]"></td>
+              <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#strip-row-${strip_row}').remove()"><i class="bi bi-trash3"></i> Remove</button></td>
           </tr>
       `;
 
@@ -44,8 +44,8 @@ const addStrip = (element) => {
 const addDependency = (element) => {
   let html = `
           <tr id="dependency-row-${dep_row}">
-                <td><input type="text" class="form-control" placeholder="Name" name="dependencies[${dep_row}][value]"></td>
-                <td><input type="text" class="form-control" placeholder="Version" name="dependencies[${dep_row}][version]"></td>
+                <td><input type="text" class="form-control form-control-sm" placeholder="Name" name="dependencies[${dep_row}][value]"></td>
+                <td><input type="text" class="form-control form-control-sm" placeholder="Version" name="dependencies[${dep_row}][version]"></td>
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][darwin][x86_64]"></td>
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][darwin][aarch64]"></td>
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][linux][x86_64]"></td>
@@ -58,7 +58,7 @@ const addDependency = (element) => {
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][test][darwin][aarch64]"></td>
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][test][linux][x86_64]"></td>
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][test][linux][aarch64]"></td>
-              <td><button type="button" class="btn btn-danger" onclick="$('#dependency-row-${dep_row}').remove()">-</button></td>
+              <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-${dep_row}').remove()"><i class="bi bi-trash3"></i></button></td>
           </tr>
       `;
 
