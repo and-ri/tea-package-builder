@@ -1,19 +1,188 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
-    <link href="./styles.css" rel="stylesheet">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+<html lang="en">
 
-    <!-- You can also require other files to run in this process -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-md-6">
+                <form id="config">
+                    <fieldset>
+                        <legend>Package info</legend>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Name" name="package[name]" value="foo">
+                            <label>Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Display name" name="package[display_name]" value="libfoo">
+                            <label>Display name</label>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Distributable</legend>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="URL" name="package[url]" value="https://foo.bar/foo-{{version}}.tar.gz">
+                            <label>URL</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" placeholder="Strip" name="package[strip]" value="1">
+                            <label>Strip</label>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Versions</legend>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="version[type]">
+                                <option value="github">GitHub</option>
+                                <option value="gitlab">GitLab</option>
+                                <option value="url" selected>URL</option>
+                            </select>
+                            <label>Type</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Value" name="version[value]" value="https://foo.bar/">
+                            <label>Value</label>
+                        </div>
+                        <div class="bg-light rounded-3 p-3 border mb-3">
+                            <p class="fs-5">Need match?</p>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input hide-switch" type="checkbox" role="switch" name="match[enabled]" checked>
+                                <label class="form-check-label"></label>
+                            </div>
+                            <div class="form-floating mb-3 hide" style="display:block">
+                                <input type="text" class="form-control" placeholder="Value" name="match[value]" value="foo-\d+\.\d+\.\d+\.tar\.gz$">
+                                <label>Value</label>
+                            </div>
+                        </div>
+                        <div class="bg-light rounded-3 p-3 border mb-3">
+                            <p class="fs-5">Need strip?</p>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input hide-switch" type="checkbox" role="switch" name="stripe[enabled]" checked>
+                                <label class="form-check-label"></label>
+                            </div>
+                            <div class="table-responsive hide" style="display: block;">
+                                <table class="table table-bordered small" id="strip">
+                                    <thead class="fw-semibold">
+                                        <tr>
+                                            <td>Value</td>
+                                            <td>Remove</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="strip-row-t1">
+                                            <td><input type="text" class="form-control" placeholder="Value" name="stripe[items][t1][value]" value="^foo-"></td>
+                                            <td><button type="button" class="btn btn-danger" onclick="$('#strip-row-t1').remove()">Remove</button></td>
+                                        </tr>
+                                        <tr id="strip-row-t2">
+                                            <td><input type="text" class="form-control" placeholder="Value" name="stripe[items][t2][value]" value="\.tar\.gz$"></td>
+                                            <td><button type="button" class="btn btn-danger" onclick="$('#strip-row-t2').remove()">Remove</button></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2">
+                                                <button type="button" class="btn btn-sm btn-dark" onclick="addStrip('#strip')">Add strip</button>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Dependencies</legend>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hovered" id="dependencies">
+                                <thead class="small fw-semibold">
+                                    <tr>
+                                        <td rowspan="3">Package</td>
+                                        <td colspan="4">Runtime</td>
+                                        <td colspan="4">Build</td>
+                                        <td colspan="4">Test</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">darwin</td>
+                                        <td colspan="2">linux</td>
+                                        <td colspan="2">darwin</td>
+                                        <td colspan="2">linux</td>
+                                        <td colspan="2">darwin</td>
+                                        <td colspan="2">linux</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>x86-64</td>
+                                        <td>aarch64</td>
+                                        <td>x86-64</td>
+                                        <td>aarch64</td>
+                                        <td>x86-64</td>
+                                        <td>aarch64</td>
+                                        <td>x86-64</td>
+                                        <td>aarch64</td>
+                                        <td>x86-64</td>
+                                        <td>aarch64</td>
+                                        <td>x86-64</td>
+                                        <td>aarch64</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr id="dependency-row-t1">
+                                    <td><input type="text" class="form-control" placeholder="Name" name="dependencies[t1][value]" value="x.org/x11"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][darwin][x86_64]" checked></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][darwin][aarch64]" checked></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][linux][x86_64]" checked></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][runtime][linux][aarch64]" checked></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
+                                    <td class="text-center pt-3"><input type="checkbox" class="form-check-input"></td>
+                                    <td><button type="button" class="btn btn-danger" onclick="$('#dependency-row-t1').remove()">-</button></td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="14">
+                                            <button type="button" class="btn btn-sm btn-dark" onclick="addDependency('#dependencies')">Add dependency</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div>1. Run command:</div>
+                <code id="command">
+                    <pre>
+
+                    </pre>
+                </code>
+                <div>2. Paste code:</div>
+                <code id="output">
+                    <pre>
+
+                    </pre>
+                </code>
+            </div>
+        </div>
+    </div>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./renderer.js"></script>
-  </body>
+</body>
+
 </html>
