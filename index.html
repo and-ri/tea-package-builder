@@ -80,17 +80,17 @@
                                     <tbody>
                                         <tr id="strip-row-t1">
                                             <td><input type="text" class="form-control form-control-sm" placeholder="Value" name="stripe[items][t1][value]" value="^foo-"></td>
-                                            <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#strip-row-t1').remove()"><i class="bi bi-trash3"></i> Remove</button></td>
+                                            <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#strip-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
                                         </tr>
                                         <tr id="strip-row-t2">
                                             <td><input type="text" class="form-control form-control-sm" placeholder="Value" name="stripe[items][t2][value]" value="\.tar\.gz$"></td>
-                                            <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#strip-row-t2').remove()"><i class="bi bi-trash3"></i> Remove</button></td>
+                                            <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#strip-row-t2').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td colspan="2">
-                                                <button type="button" class="btn btn-sm btn-dark" onclick="addStrip('#strip')">Add strip</button>
+                                                <button type="button" class="btn btn-sm btn-dark" onclick="addStrip('#strip')"><i class="bi bi-plus-lg"></i> Add strip</button>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -153,7 +153,7 @@
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][darwin][aarch64]"></td>
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][linux][x86_64]"></td>
                                     <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t1][test][linux][aarch64]"></td>
-                                    <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-t1').remove()"><i class="bi bi-trash3"></i></button></td>
+                                    <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-t1').remove();generate();"><i class="bi bi-trash3"></i></button></td>
                                 </tr>
                                 <tr id="dependency-row-t2">
                                   <td><input type="text" class="form-control form-control-sm" placeholder="Name" name="dependencies[t2][value]" value="tea.xyz/gx/cc"></td>
@@ -170,18 +170,48 @@
                                   <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][darwin][aarch64]"></td>
                                   <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][linux][x86_64]"></td>
                                   <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[t2][test][linux][aarch64]"></td>
-                                  <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-t2').remove()"><i class="bi bi-trash3"></i></button></td>
+                                  <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-t2').remove();generate();"><i class="bi bi-trash3"></i></button></td>
                               </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="14">
-                                            <button type="button" class="btn btn-sm btn-dark" onclick="addDependency('#dependencies')">Add dependency</button>
+                                            <button type="button" class="btn btn-sm btn-dark" onclick="addDependency('#dependencies')"><i class="bi bi-plus-lg"></i> Add dependency</button>
                                         </td>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>Build script</legend>
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="build">
+                          <thead class="fw-semibold">
+                            <tr>
+                              <td>Command</td>
+                              <td style="width: 15%">Remove</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr id="build-script-row-t1">
+                              <td>
+                                <input type="text" class="form-control" placeholder="Command" name="build[script][t1]" value="./configure $ARGS">
+                              </td>
+                              <td>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="$('#build-script-row-t1').remove();generate();"><i class="bi bi-trash3"></i> Remove</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <td colspan="2">
+                                <button type="button" class="btn btn-sm btn-dark" onclick="addBuildCommand('#build')"><i class="bi bi-plus-lg"></i> Add command</button>
+                              </td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
                     </fieldset>
                 </form>
             </div>

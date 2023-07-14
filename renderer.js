@@ -18,12 +18,13 @@ $(function () {
 
 let strip_row = 0;
 let dep_row = 0;
+let build_row = 0;
 
 const addStrip = (element) => {
   let html = `
           <tr id="strip-row-${strip_row}">
               <td><input type="text" class="form-control form-control-sm" placeholder="Value" name="stripe[items][${strip_row}][value]"></td>
-              <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#strip-row-${strip_row}').remove()"><i class="bi bi-trash3"></i> Remove</button></td>
+              <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#strip-row-${strip_row}').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
           </tr>
       `;
 
@@ -58,7 +59,7 @@ const addDependency = (element) => {
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][test][darwin][aarch64]"></td>
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][test][linux][x86_64]"></td>
                 <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][test][linux][aarch64]"></td>
-              <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-${dep_row}').remove()"><i class="bi bi-trash3"></i></button></td>
+              <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-${dep_row}').remove();generate();"><i class="bi bi-trash3"></i></button></td>
           </tr>
       `;
 
@@ -75,6 +76,28 @@ const addDependency = (element) => {
 
   generate();
 };
+
+const addBuildCommand = (element) => {
+    let html = `
+            <tr id="build-script-row-${build_row}">
+                <td><input type="text" class="form-control" placeholder="Command" name="build[script][${build_row}]"></td>
+                <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#build-script-row-${build_row}').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
+            </tr>
+        `;
+  
+    $(`${element} > tbody`).append(html);
+  
+    $("input").on("change", function () {
+      generate();
+    });
+    $("select").on("change", function () {
+      generate();
+    });
+  
+    strip_row++;
+  
+    generate();
+  };
 
 const generate = () => {
   let formData = {};
@@ -407,6 +430,16 @@ const generate = () => {
       build.linux_aarch64.map((item) => {
         yml += `            ${item.value}: ${item.version ? item.version : "'*'" }\n`;
       });
+    }
+  }
+
+  if (formData.build && formData.build.script) {
+    yml += '    script:\n';
+    for (var key in formData.build.script) {
+      if (formData.build.script.hasOwnProperty(key)) {
+        var item = formData.build.script[key];
+        yml += `        - ${item}\n`;
+      }
     }
   }
 
