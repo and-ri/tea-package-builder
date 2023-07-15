@@ -33,6 +33,53 @@ const generate = () => {
   yml += "versions:\n";
   yml += `    ${formData.version.type}: ${formData.version.value}\n`;
 
+  if (formData.platforms) {
+    yml += 'platforms:\n';
+    if (formData.platforms.darwin && formData.platforms.linux) {
+      if (formData.platforms.darwin.x86_64 && formData.platforms.darwin.aarch64) {
+        yml += `  - darwin\n`;
+      } else {
+        if (formData.platforms.darwin.x86_64) {
+          yml += `  - darwin/x86-64\n`;
+        } else if (formData.platforms.darwin.aarch64) {
+          yml += `  - darwin/aarch64\n`;
+        }
+      }
+      if (formData.platforms.linux.x86_64 && formData.platforms.linux.aarch64) {
+        yml += `  - linux\n`;
+      } else {
+        if (formData.platforms.linux.x86_64) {
+          yml += `  - linux/x86-64\n`;
+        } else if (formData.platforms.linux.aarch64) {
+          yml += `  - linux/aarch64\n`;
+        }
+      }
+    } else {
+      if (formData.platforms.darwin) {
+        if (formData.platforms.darwin.x86_64 && formData.platforms.darwin.aarch64) {
+          yml += `  - darwin\n`;
+        } else {
+          if (formData.platforms.darwin.x86_64) {
+            yml += `  - darwin/x86-64\n`;
+          } else if (formData.platforms.darwin.aarch64) {
+            yml += `  - darwin/aarch64\n`;
+          }
+        }
+      }
+      if (formData.platforms.linux) {
+        if (formData.platforms.linux.x86_64 && formData.platforms.linux.aarch64) {
+          yml += `  - linux\n`;
+        } else {
+          if (formData.platforms.linux.x86_64) {
+            yml += `  - linux/x86-64\n`;
+          } else if (formData.platforms.linux.aarch64) {
+            yml += `  - linux/aarch64\n`;
+          }
+        }
+      }
+    }
+  }
+
   if (formData.match.enabled) {
     yml += `    match: /${formData.match.value}/\n`;
   }
