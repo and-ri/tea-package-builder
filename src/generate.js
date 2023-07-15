@@ -20,8 +20,8 @@ const generate = () => {
   yml += "distributable:\n";
 
   if (formData.package.url) {
-    yml += `    url: ${formData.package.url}\n`;
-    yml += `    strip-components: ${
+    yml += `  url: ${formData.package.url}\n`;
+    yml += `  strip-components: ${
       formData.package.strip ? formData.package.strip : 0
     }\n`;
   }
@@ -31,7 +31,7 @@ const generate = () => {
   }
 
   yml += "versions:\n";
-  yml += `    ${formData.version.type}: ${formData.version.value}\n`;
+  yml += `  ${formData.version.type}: ${formData.version.value}\n`;
 
   if (formData.platforms) {
     yml += 'platforms:\n';
@@ -81,17 +81,17 @@ const generate = () => {
   }
 
   if (formData.match.enabled) {
-    yml += `    match: /${formData.match.value}/\n`;
+    yml += `  match: /${formData.match.value}/\n`;
   }
 
   if (formData.stripe && formData.stripe.enabled) {
-    yml += "    strip:\n";
+    yml += "  strip:\n";
 
     if (formData.stripe.items) {
       for (var key in formData.stripe.items) {
         if (formData.stripe.items.hasOwnProperty(key)) {
           var item = formData.stripe.items[key];
-          yml += `        - /${item.value}/\n`;
+          yml += `    - /${item.value}/\n`;
         }
       }
     }
@@ -237,53 +237,53 @@ const generate = () => {
 
     if (Object.keys(runtime.all).length > 0) {
       runtime.all.map((item) => {
-        yml += `    ${item.value}: ${item.version ? item.version : "'*'"}\n`;
+        yml += `  ${item.value}: ${item.version ? item.version : "'*'"}\n`;
       });
     }
     if (Object.keys(runtime.darwin).length > 0) {
-      yml += "      darwin:\n";
+      yml += "  darwin:\n";
       runtime.darwin.map((item) => {
-        yml += `        ${item.value}: ${
+        yml += `    ${item.value}: ${
           item.version ? item.version : "'*'"
         }\n`;
       });
     }
     if (Object.keys(runtime.linux).length > 0) {
-      yml += "      linux:\n";
+      yml += "  linux:\n";
       runtime.linux.map((item) => {
-        yml += `        ${item.value}: ${
+        yml += `    ${item.value}: ${
           item.version ? item.version : "'*'"
         }\n`;
       });
     }
     if (Object.keys(runtime.darwin_x86_64).length > 0) {
-      yml += "      darwin/x86-64:\n";
+      yml += "  darwin/x86-64:\n";
       runtime.darwin_x86_64.map((item) => {
-        yml += `        ${item.value}: ${
+        yml += `    ${item.value}: ${
           item.version ? item.version : "'*'"
         }\n`;
       });
     }
     if (Object.keys(runtime.darwin_aarch64).length > 0) {
-      yml += "      darwin/aarch64:\n";
+      yml += "  darwin/aarch64:\n";
       runtime.darwin_aarch64.map((item) => {
-        yml += `        ${item.value}: ${
+        yml += `    ${item.value}: ${
           item.version ? item.version : "'*'"
         }\n`;
       });
     }
     if (Object.keys(runtime.linux_x86_64).length > 0) {
-      yml += "      linux/x86-64:\n";
+      yml += "  linux/x86-64:\n";
       runtime.linux_x86_64.map((item) => {
-        yml += `        ${item.value}: ${
+        yml += `    ${item.value}: ${
           item.version ? item.version : "'*'"
         }\n`;
       });
     }
     if (Object.keys(runtime.linux_aarch64).length > 0) {
-      yml += "      linux/aarch64:\n";
+      yml += "  linux/aarch64:\n";
       runtime.linux_aarch64.map((item) => {
-        yml += `        ${item.value}: ${
+        yml += `    ${item.value}: ${
           item.version ? item.version : "'*'"
         }\n`;
       });
