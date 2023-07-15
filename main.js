@@ -5,7 +5,7 @@ const path = require('path')
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    icon: './images/logo.png',
+    icon: path.join(__dirname, 'images/logo.png'),
     width: 800,
     height: 600,
     webPreferences: {
@@ -43,4 +43,4 @@ app.on('window-all-closed', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-app.dock.setIcon("./images/logo.png");
+app.dock.setIcon(path.join(__dirname, 'images/logo.png'));
