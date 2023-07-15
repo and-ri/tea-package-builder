@@ -1,27 +1,36 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "tea-package-builder",
+  "version": "0.1.0",
+  "description": "Tea Package Builder is a tool that helps create packages for Tea.xyz quickly and conveniently. The program fetches an up-to-date list of packages from tea.xyz, enabling convenient input fields with autocomplete for dependencies.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/ArionThinker/tea-package-builder",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "electron",
+    "tea.xyz",
+    "package",
+    "builder",
+    "opensource"
   ],
-  "author": "GitHub",
+  "author": "Andrii Riabchenko",
   "license": "CC0-1.0",
   "devDependencies": {
+    "@electron-forge/cli": "^6.2.1",
+    "@electron-forge/maker-deb": "^6.2.1",
+    "@electron-forge/maker-rpm": "^6.2.1",
+    "@electron-forge/maker-squirrel": "^6.2.1",
+    "@electron-forge/maker-zip": "^6.2.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "electron": "^25.3.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
+    "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.7.0"
   }
 }
