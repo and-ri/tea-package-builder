@@ -93,6 +93,33 @@
                         </div>
                     </fieldset>
                     <fieldset>
+                      <legend>Platforms</legend>
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <thead class="fw-semibold">
+                            <tr>
+                              <td colspan="2">darwin</td>
+                              <td colspan="2">linux</td>
+                            </tr>
+                            <tr>
+                              <td>x86-64</td>
+                              <td>aarch64</td>
+                              <td>x86-64</td>
+                              <td>aarch64</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="text-center"><input type="checkbox" name="platforms[darwin][x86_64]" class="form-check-input"></td>
+                              <td class="text-center"><input type="checkbox" name="platforms[darwin][aarch64]" class="form-check-input"></td>
+                              <td class="text-center"><input type="checkbox" name="platforms[linux][x86_64]" class="form-check-input"></td>
+                              <td class="text-center"><input type="checkbox" name="platforms[linux][aarch64]" class="form-check-input"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </fieldset>
+                    <fieldset>
                         <legend>Dependencies</legend>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped table-hovered" id="dependencies">
