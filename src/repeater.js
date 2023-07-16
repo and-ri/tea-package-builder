@@ -92,7 +92,20 @@ let build_row = 0;
 const addBuildCommand = (element) => {
   let html = `
               <tr id="build-script-row-${build_row}">
-                  <td><input type="text" class="form-control" placeholder="Command" name="build[script][${build_row}]"></td>
+                  <td>
+                    <div class="form-group mb-3">
+                      <textarea class="form-control" placeholder="Command" name="build[script][${build_row}][command]"></textarea>
+                    </div>
+                    <p>Condition:</p>
+                    <div class="row">
+                      <div class="form-group col-3">
+                        <input type="text" class="form-control" placeholder="Name" name="build[script][${build_row}][condition][name]">
+                      </div>
+                      <div class="form-group col-9">
+                        <input type="text" class="form-control" placeholder="Value" name="build[script][${build_row}][condition][value]">
+                      </div>
+                    </div>
+                  </td>
                   <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#build-script-row-${build_row}').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
               </tr>
           `;
