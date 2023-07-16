@@ -33,6 +33,23 @@ const generate = () => {
   yml += "versions:\n";
   yml += `  ${formData.version.type}: ${formData.version.value}\n`;
 
+  if (formData.match.enabled) {
+    yml += `  match: /${formData.match.value}/\n`;
+  }
+
+  if (formData.stripe && formData.stripe.enabled) {
+    yml += "  strip:\n";
+
+    if (formData.stripe.items) {
+      for (var key in formData.stripe.items) {
+        if (formData.stripe.items.hasOwnProperty(key)) {
+          var item = formData.stripe.items[key];
+          yml += `    - /${item.value}/\n`;
+        }
+      }
+    }
+  }
+
   if (formData.platforms) {
     yml += 'platforms:\n';
     if (formData.platforms.darwin && formData.platforms.linux) {
@@ -75,23 +92,6 @@ const generate = () => {
           } else if (formData.platforms.linux.aarch64) {
             yml += `  - linux/aarch64\n`;
           }
-        }
-      }
-    }
-  }
-
-  if (formData.match.enabled) {
-    yml += `  match: /${formData.match.value}/\n`;
-  }
-
-  if (formData.stripe && formData.stripe.enabled) {
-    yml += "  strip:\n";
-
-    if (formData.stripe.items) {
-      for (var key in formData.stripe.items) {
-        if (formData.stripe.items.hasOwnProperty(key)) {
-          var item = formData.stripe.items[key];
-          yml += `    - /${item.value}/\n`;
         }
       }
     }
@@ -473,7 +473,31 @@ const generate = () => {
     for (var key in formData.build.script) {
       if (formData.build.script.hasOwnProperty(key)) {
         var item = formData.build.script[key];
-        yml += `    - ${item}\n`;
+        if (item.condition && item.condition.name && item.condition.value) {
+          let commands = item.command.split(/\r\n|\r|\n/g);
+
+          if (commands.length > 1) {
+            yml += `    - run: |\n`;
+            commands.map((item) => {
+              yml += `        ${item}\n`;
+            });
+          } else {
+            yml += `    - run: ${item.command}\n`;
+          }
+          yml += `      ${item.condition.name}: ${item.condition.value}\n`;
+        } else {
+
+          let commands = item.command.split(/\r\n|\r|\n/g);
+
+          if (commands.length > 1) {
+            yml += `    - run: |\n`;
+            commands.map((item) => {
+              yml += `        ${item}\n`;
+            });
+          } else {
+            yml += `    - ${item.command}\n`;
+          }
+        }
       }
     }
   }
