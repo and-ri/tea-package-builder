@@ -464,31 +464,34 @@ const generate = () => {
         yml += `      ${item.value}: ${item.version ? item.version : "'*'"}\n`;
       });
     }
-    if (formData.build && formData.build.script) {
-      yml += "  script:\n";
-      for (var key in formData.build.script) {
-        if (formData.build.script.hasOwnProperty(key)) {
-          var item = formData.build.script[key];
-          yml += `    - ${item}\n`;
-        }
+  }
+  if (formData.build && formData.directory && formData.directory.build) {
+    yml += `  working-directory: ${formData.directory.build}\n`;
+  }
+  if (formData.build && formData.build.script) {
+    yml += "  script:\n";
+    for (var key in formData.build.script) {
+      if (formData.build.script.hasOwnProperty(key)) {
+        var item = formData.build.script[key];
+        yml += `    - ${item}\n`;
       }
     }
-    if (formData.build && formData.build.env) {
-      yml += "  env:\n";
-      for (var key in formData.build.env) {
-        if (formData.build.env.hasOwnProperty(key)) {
-          var item = formData.build.env[key];
+  }
+  if (formData.build && formData.build.env) {
+    yml += "  env:\n";
+    for (var key in formData.build.env) {
+      if (formData.build.env.hasOwnProperty(key)) {
+        var item = formData.build.env[key];
 
-          let values = item.value.split(/\r\n|\r|\n/g);
+        let values = item.value.split(/\r\n|\r|\n/g);
 
-          if (values.length > 1) {
-            yml += `    ${item.variable}:\n`;
-            values.map((item) => {
-              yml += `      - ${item}\n`;
-            });
-          } else {
-            yml += `    ${item.variable}: ${values}\n`;
-          }
+        if (values.length > 1) {
+          yml += `    ${item.variable}:\n`;
+          values.map((item) => {
+            yml += `      - ${item}\n`;
+          });
+        } else {
+          yml += `    ${item.variable}: ${values}\n`;
         }
       }
     }
