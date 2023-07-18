@@ -66,7 +66,7 @@ const addDependency = (element) => {
       result = autocomplete($(this).val());
 
       html =
-        '<div class="autocomplete-result position-absolute start-0 bg-light mt-3 p-3 rounded-3">';
+        '<div class="autocomplete-result position-absolute start-0 mt-3 p-3 rounded-3">';
 
       if (result.length > 0) {
         result.map((item) => {

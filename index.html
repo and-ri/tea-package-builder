@@ -53,7 +53,7 @@
                             <input type="text" class="form-control" placeholder="Value" name="version[value]" value="">
                             <label>Value</label>
                         </div>
-                        <div class="bg-light rounded-3 p-3 border mb-3">
+                        <div class="rounded-3 p-3 border mb-3">
                             <p class="fs-5">Need match?</p>
                             <div class="form-check form-switch mb-3">
                                 <input class="form-check-input hide-switch" type="checkbox" role="switch" name="match[enabled]">
@@ -64,7 +64,7 @@
                                 <label>Value</label>
                             </div>
                         </div>
-                        <div class="bg-light rounded-3 p-3 border mb-3">
+                        <div class="rounded-3 p-3 border mb-3">
                             <p class="fs-5">Need strip?</p>
                             <div class="form-check form-switch mb-3">
                                 <input class="form-check-input hide-switch" type="checkbox" role="switch" name="stripe[enabled]">
@@ -293,19 +293,20 @@
             <div class="col-md-12">
                 <div>1. Run command:</div>
                 <code id="command">
-                    <pre>
+                    <pre class="copy">
 
                     </pre>
                 </code>
                 <div>2. Paste code:</div>
                 <code id="output">
-                    <pre>
+                    <pre class="copy">
 
                     </pre>
                 </code>
             </div>
         </div>
     </div>
+    <div id="toasts"></div>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./renderer.js"></script>
     <script src="./src/generate.js"></script>
