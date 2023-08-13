@@ -105,3 +105,15 @@ input[role='switch']:checked + label:before {
     flex-direction: column;
     gap: 1rem;
 }
+
+input:not(:checked) + .btn-radiocheck:before {
+  content: '\F28A';
+  margin-right: 1rem;
+  font-family: bootstrap-icons;
+}
+input:checked + .btn-radiocheck:before {
+  content: '\F270';
+  margin-right: 1rem;
+  font-family: bootstrap-icons;
+  color: var(--color-accent);
+}
