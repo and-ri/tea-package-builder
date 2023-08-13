@@ -155,6 +155,74 @@ const addBuildEnv = (element) => {
   generate();
 };
 
+const presets = {
+  configure: [
+    '--disable-debug',
+    '--disable-dependency-tracking',
+    '--prefix="{{prefix}}"',
+    '--libdir="{{prefix}}/lib"'
+  ],
+  cargo: [
+    '--locked',
+    '--root="{{prefix}}"',
+    '--path=.'
+  ],
+  cmake: [
+    '-DCMAKE_INSTALL_PREFIX="{{prefix}}',
+    '-DCMAKE_INSTALL_LIBDIR=lib',
+    '-DCMAKE_BUILD_TYPE=Release',
+    '-DCMAKE_FIND_FRAMEWORK=LAST',
+    '-DCMAKE_VERBOSE_MAKEFILE=ON',
+    '-Wno-dev',
+    '-DBUILD_TESTING=OFF'
+  ],
+  go: [
+    '-trimpath',
+    '-o="{{prefix}}/bin/<name>"'
+  ],
+  meson: [
+    '--prefix="{{prefix}}"',
+    '--libdir="{{prefix}}/lib"',
+    '--buildtype=release',
+    '--wrap-mode=nofallback'
+  ]
+}
+
+const addPresetArgs = (element) => {
+  let preset_name = $('input[name="presets"]:checked').val();
+
+  let value = presets[preset_name].join('\n');
+
+  let html = `
+      <tr id="build-env-row-${build_env_row}">
+        <td><input type="text" class="form-control" placeholder="Variable" name="build[env][${build_env_row}][variable]" value="${preset_name.toUpperCase()}_ARGS"></td>
+        <td><textarea class="form-control" name="build[env][${build_env_row}][value]">${value}</textarea></td>
+        <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#build-env-row-${build_env_row}').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
+      </tr>
+  `;
+      
+  $(`${element} > tbody`).append(html);
+
+  $('#modalPresets').modal('hide');
+  $('input[name="presets"]').prop('checked', false);
+
+
+  $("input").on("change", function () {
+    generate();
+  });
+  $("select").on("change", function () {
+    generate();
+  });
+  $("textarea").on("change", function () {
+    generate();
+  });
+
+  build_env_row++;
+
+  generate();
+
+}
+
 let binary_row = 0;
 
 const addBinary = (element) => {
