@@ -46,6 +46,7 @@
                                 <option value="github">GitHub</option>
                                 <option value="gitlab">GitLab</option>
                                 <option value="url" selected>URL</option>
+                                <option value="value">Value</option>
                             </select>
                             <label>Type</label>
                         </div>
@@ -213,7 +214,52 @@
                           <tfoot>
                             <tr>
                               <td colspan="3">
-                                <button type="button" class="btn btn-sm btn-dark" onclick="addBuildEnv('#env')"><i class="bi bi-plus-lg"></i> Add variable</button>
+                                <div class="hstack gap-3">
+                                  <div class="item">
+                                    <button type="button" class="btn btn-sm btn-dark" onclick="addBuildEnv('#env')"><i class="bi bi-plus-lg"></i> Add variable</button>
+                                  </div>
+                                  <div class="item">
+                                    <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#modalPresets"><i class="bi bi-collection"></i> Add preset variable</button>
+                                    <div class="modal fade" id="modalPresets" tabindex="-1" aria-labelledby="modalPresetsLabel" aria-hidden="true" data-bs-theme="dark">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content bg-dark rounded-0">
+                                          <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="modalPresetsLabel">Preset variables</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <ul class="list-group">
+                                              <li class="list-group-item">
+                                                <input type="radio" class="btn-check" name="presets" value="configure" id="radio-preset-0" autocomplete="off">
+                                                <label class="btn btn-radiocheck" for="radio-preset-0">standart CONFIGURE args</label>
+                                              </li>
+                                              <li class="list-group-item">
+                                                <input type="radio" class="btn-check" name="presets" value="cargo" id="radio-preset-1" autocomplete="off">
+                                                <label class="btn btn-radiocheck" for="radio-preset-1">standart CARGO args</label>
+                                              </li>
+                                              <li class="list-group-item">
+                                                <input type="radio" class="btn-check" name="presets" value="cmake" id="radio-preset-2" autocomplete="off">
+                                                <label class="btn btn-radiocheck" for="radio-preset-2">standart CMAKE args</label>
+                                              </li>
+                                              <li class="list-group-item">
+                                                <input type="radio" class="btn-check" name="presets" value="go" id="radio-preset-3" autocomplete="off">
+                                                <label class="btn btn-radiocheck" for="radio-preset-3">standart GO args</label>
+                                              </li>
+                                              <li class="list-group-item">
+                                                <input type="radio" class="btn-check" name="presets" value="meson" id="radio-preset-4" autocomplete="off">
+                                                <label class="btn btn-radiocheck" for="radio-preset-4">standart MESON args</label>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-primary" onclick="addPresetArgs('#env')"><i class="bi bi-plus-lg"></i> Add</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </td>
                             </tr>
                           </tfoot>
