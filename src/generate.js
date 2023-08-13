@@ -31,7 +31,11 @@ const generate = () => {
   }
 
   yml += "versions:\n";
-  yml += `  ${formData.version.type}: ${formData.version.value}\n`;
+  if (formData.version.type == 'value') {
+    yml += `  - ${formData.version.value}\n`;
+  } else {
+    yml += `  ${formData.version.type}: ${formData.version.value}\n`;
+  }
 
   if (formData.match.enabled) {
     yml += `  match: /${formData.match.value}/\n`;
