@@ -25,6 +25,17 @@ $(function () {
     navigator.clipboard.writeText(content);
     createToast('<i class="bi bi-clipboard-check"></i> Content copied to clipboard');
   });
+
+  // Save package
+  $('#btnSave').on('click', function () {
+    package.set(packageData.package.name, packageData);
+    createToast(`<i class="bi bi-clipboard-check"></i> Package <b>${packageData.package.name}</b> saved!`);
+  });
+
+  // Load package
+  $('#btnLoad').on('click', function () {
+    package.modal();
+  });
 });
 
 const getPantry = () => {

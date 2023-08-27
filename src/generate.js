@@ -1,3 +1,5 @@
+let packageData = {};
+
 const generate = () => {
   let formData = {};
   $("#config")
@@ -13,7 +15,9 @@ const generate = () => {
         obj = obj[part];
       }
       obj[parts[parts.length - 1].replace(/]/g, "")] = item.value;
-    });
+  });
+
+  packageData = formData;
 
   let yml = "";
 

@@ -30,20 +30,20 @@ let dep_row = 0;
 const addDependency = (element) => {
   let html = `
             <tr id="dependency-row-${dep_row}">
-                  <td class="position-relative"><input type="text" class="form-control form-control-sm autocomplete" placeholder="Name" name="dependencies[${dep_row}][value]"></td>
-                  <td><input type="text" class="form-control form-control-sm" placeholder="Version" name="dependencies[${dep_row}][version]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][darwin][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][darwin][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][linux][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][linux][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][build][darwin][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][build][darwin][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][build][linux][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][build][linux][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][testDep][darwin][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][testDep][darwin][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][testDep][linux][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][testDep][linux][aarch64]"></td>
+                  <td class="position-relative"><input type="text" class="form-control form-control-sm autocomplete" placeholder="Name" data-name="value" name="dependencies[${dep_row}][value]"></td>
+                  <td><input type="text" class="form-control form-control-sm" placeholder="Version" data-name="version" name="dependencies[${dep_row}][version]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/darwin/x86_64" name="dependencies[${dep_row}][runtime][darwin][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/darwin/aarch64" name="dependencies[${dep_row}][runtime][darwin][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/linux/x86_64" name="dependencies[${dep_row}][runtime][linux][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/linux/aarch64" name="dependencies[${dep_row}][runtime][linux][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="build/darwin/x86_64" name="dependencies[${dep_row}][build][darwin][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="build/darwin/aarch64" name="dependencies[${dep_row}][build][darwin][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="build/linux/x86_64" name="dependencies[${dep_row}][build][linux][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="build/linux/aarch64" name="dependencies[${dep_row}][build][linux][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="test/darwin/x86_64" name="dependencies[${dep_row}][testDep][darwin][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="test/darwin/aarch64" name="dependencies[${dep_row}][testDep][darwin][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="test/linux/x86_64" name="dependencies[${dep_row}][testDep][linux][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="test/linux/aarch64" name="dependencies[${dep_row}][testDep][linux][aarch64]"></td>
                 <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-${dep_row}').remove();generate();"><i class="bi bi-trash3"></i></button></td>
             </tr>
         `;
