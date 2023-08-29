@@ -120,6 +120,60 @@ const package = {
             }
         }
 
+        // Build script
+        if (load_package.build && load_package.build.script) {
+            for (const key in load_package.build.script) {
+                const item = load_package.build.script[key];
+                addBuildCommand('#build');
+
+                $('#build > tbody > tr:last-child textarea[data-name="command"]').text(item.command);
+                $('#build > tbody > tr:last-child input[data-name="condition"]').val(item.condition.name);
+                $('#build > tbody > tr:last-child input[data-name="value"]').val(item.condition.value);
+            }
+        }
+
+        // Build env
+        if (load_package.build && load_package.build.env) {
+            for (const key in load_package.build.env) {
+                const item = load_package.build.env[key];
+                addBuildEnv('#env');
+
+                $('#env > tbody > tr:last-child input[data-name="variable"]').val(item.variable);
+                $('#env > tbody > tr:last-child textarea[data-name="value"]').text(item.value);
+            }
+        }
+
+        // Test script
+        if (load_package.test && load_package.test.script) {
+            for (const key in load_package.test.script) {
+                const item = load_package.test.script[key];
+                addTestCommand('#test');
+
+                $('#test > tbody > tr:last-child input').val(item);
+            }
+        }
+
+        // Test env
+        if (load_package.test && load_package.test.env) {
+            for (const key in load_package.test.env) {
+                const item = load_package.test.env[key];
+                addTestEnv('#testEnv');
+
+                $('#testEnv > tbody > tr:last-child input[data-name="variable"]').val(item.variable);
+                $('#testEnv > tbody > tr:last-child textarea[data-name="value"]').text(item.value);
+            }
+        }
+
+        // Provides
+        if (load_package.provides) {
+            for (const key in load_package.provides) {
+                const item = load_package.provides[key];
+                addBinary('#provides');
+
+                $('#provides > tbody > tr:last-child input').val(item);
+            }
+        }
+
         // Directory
         $('input[name="directory[build]"]').val(load_package.directory.build);
 
