@@ -66,7 +66,7 @@ const package = {
         $('input[name="match[value]"]').val(load_package.match.value);
 
         // Strip
-        if (load_package.stripe.enabled == 'on') {
+        if (load_package.stripe && load_package.stripe.enabled == 'on') {
             $('input[name="stripe[enabled]"]').attr('checked', true);
             $('input[name="stripe[enabled]"]').parent().next(".hide").slideDown();
         } else {
@@ -75,7 +75,7 @@ const package = {
         }
         $('#strip > tbody').html('');
         
-        if (load_package.stripe.items) {
+        if (load_package.stripe && load_package.stripe.items) {
             for (const key in load_package.stripe.items) {
                 if (load_package.stripe.items.hasOwnProperty(key)) {
                   const item = load_package.stripe.items[key];
@@ -86,10 +86,16 @@ const package = {
         }
 
         // Platforms
-        $('input[name="platforms[darwin][x86_64]"]').attr('checked', load_package.platforms.darwin.x86_64 == 'on' ? true : false);
-        $('input[name="platforms[darwin][aarch64]"]').attr('checked', load_package.platforms.darwin.aarch64 == 'on' ? true : false);
-        $('input[name="platforms[linux][x86_64]"]').attr('checked', load_package.platforms.linux.x86_64 == 'on' ? true : false);
-        $('input[name="platforms[linux][aarch64]"]').attr('checked', load_package.platforms.linux.aarch64 == 'on' ? true : false);
+        if (load_package.platforms) {
+            if (load_package.platforms.darwin) {
+                $('input[name="platforms[darwin][x86_64]"]').attr('checked', load_package.platforms.darwin.x86_64 == 'on' ? true : false);
+                $('input[name="platforms[darwin][aarch64]"]').attr('checked', load_package.platforms.darwin.aarch64 == 'on' ? true : false);
+            }
+            if (load_package.platforms.linux) {
+                $('input[name="platforms[linux][x86_64]"]').attr('checked', load_package.platforms.linux.x86_64 == 'on' ? true : false);
+                $('input[name="platforms[linux][aarch64]"]').attr('checked', load_package.platforms.linux.aarch64 == 'on' ? true : false);
+            }
+        }
 
         // Dependencies
         $('#dependencies > tbody').html('');
