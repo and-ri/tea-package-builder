@@ -10,7 +10,7 @@ module.exports = {
       config: {
         format: "ULFO",
         icon: "./images/logo.icns",
-        background: './images/background.png',
+        background: './images/installBackground658.png',
         iconSize: 1024,
         name: "Tea Package Builder",
         overwrite: true
