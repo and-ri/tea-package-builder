@@ -14,6 +14,10 @@
 
 <body>
     <div class="container my-5">
+        <div class="hstack gap-3 mb-3" data-bs-theme=dark>
+          <div class="item"><button type="button" id="btnSave" class="btn btn-success"><i class="bi bi-file-earmark-arrow-down"></i> Save</button></div>
+          <div class="item"><button type="button" id="btnLoad" class="btn btn-info"><i class="bi bi-file-earmark-arrow-up"></i> Load</button></div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <form id="config">
@@ -364,10 +368,28 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalPackages" tabindex="-1" aria-labelledby="modalPackagesLabel" aria-hidden="true" data-bs-theme="dark">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark rounded-0">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalPresetsLabel">My Packages</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul class="list-group" id="modalPackagesList">
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="toasts"></div>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./renderer.js"></script>
     <script src="./src/generate.js"></script>
+    <script src="./src/package.js"></script>
 </body>
 
 </html>

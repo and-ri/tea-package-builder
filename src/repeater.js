@@ -30,20 +30,20 @@ let dep_row = 0;
 const addDependency = (element) => {
   let html = `
             <tr id="dependency-row-${dep_row}">
-                  <td class="position-relative"><input type="text" class="form-control form-control-sm autocomplete" placeholder="Name" name="dependencies[${dep_row}][value]"></td>
-                  <td><input type="text" class="form-control form-control-sm" placeholder="Version" name="dependencies[${dep_row}][version]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][darwin][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][darwin][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][linux][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][runtime][linux][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][build][darwin][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][build][darwin][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][build][linux][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][build][linux][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][testDep][darwin][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][testDep][darwin][aarch64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][testDep][linux][x86_64]"></td>
-                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" name="dependencies[${dep_row}][testDep][linux][aarch64]"></td>
+                  <td class="position-relative"><input type="text" class="form-control form-control-sm autocomplete" placeholder="Name" data-name="value" name="dependencies[${dep_row}][value]"></td>
+                  <td><input type="text" class="form-control form-control-sm" placeholder="Version" data-name="version" name="dependencies[${dep_row}][version]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/darwin/x86_64" name="dependencies[${dep_row}][runtime][darwin][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/darwin/aarch64" name="dependencies[${dep_row}][runtime][darwin][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/linux/x86_64" name="dependencies[${dep_row}][runtime][linux][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/linux/aarch64" name="dependencies[${dep_row}][runtime][linux][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="build/darwin/x86_64" name="dependencies[${dep_row}][build][darwin][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="build/darwin/aarch64" name="dependencies[${dep_row}][build][darwin][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="build/linux/x86_64" name="dependencies[${dep_row}][build][linux][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="build/linux/aarch64" name="dependencies[${dep_row}][build][linux][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="testDep/darwin/x86_64" name="dependencies[${dep_row}][testDep][darwin][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="testDep/darwin/aarch64" name="dependencies[${dep_row}][testDep][darwin][aarch64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="testDep/linux/x86_64" name="dependencies[${dep_row}][testDep][linux][x86_64]"></td>
+                  <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="testDep/linux/aarch64" name="dependencies[${dep_row}][testDep][linux][aarch64]"></td>
                 <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#dependency-row-${dep_row}').remove();generate();"><i class="bi bi-trash3"></i></button></td>
             </tr>
         `;
@@ -94,15 +94,15 @@ const addBuildCommand = (element) => {
               <tr id="build-script-row-${build_row}">
                   <td>
                     <div class="form-group mb-3">
-                      <textarea class="form-control" placeholder="Command" name="build[script][${build_row}][command]"></textarea>
+                      <textarea class="form-control" placeholder="Command" name="build[script][${build_row}][command]" data-name="command"></textarea>
                     </div>
                     <p>Condition:</p>
                     <div class="row">
                       <div class="form-group col-3">
-                        <input type="text" class="form-control" placeholder="Name" name="build[script][${build_row}][condition][name]">
+                        <input type="text" class="form-control" placeholder="Name" name="build[script][${build_row}][condition][name]" data-name="condition">
                       </div>
                       <div class="form-group col-9">
-                        <input type="text" class="form-control" placeholder="Value" name="build[script][${build_row}][condition][value]">
+                        <input type="text" class="form-control" placeholder="Value" name="build[script][${build_row}][condition][value]" data-name="value">
                       </div>
                     </div>
                   </td>
@@ -132,8 +132,8 @@ let build_env_row = 0;
 const addBuildEnv = (element) => {
   let html = `
       <tr id="build-env-row-${build_env_row}">
-        <td><input type="text" class="form-control" placeholder="Variable" name="build[env][${build_env_row}][variable]" value=""></td>
-        <td><textarea class="form-control" name="build[env][${build_env_row}][value]"></textarea></td>
+        <td><input type="text" class="form-control" placeholder="Variable" name="build[env][${build_env_row}][variable]" value="" data-name="variable"></td>
+        <td><textarea class="form-control" name="build[env][${build_env_row}][value]" data-name="value"></textarea></td>
         <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#build-env-row-${build_env_row}').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
   </tr>
           `;
@@ -282,8 +282,8 @@ let test_env_row = 0;
 const addTestEnv = (element) => {
   let html = `
       <tr id="test-env-row-${test_env_row}">
-        <td><input type="text" class="form-control" placeholder="Variable" name="test[env][${test_env_row}][variable]" value=""></td>
-        <td><textarea class="form-control" name="test[env][${test_env_row}][value]"></textarea></td>
+        <td><input type="text" class="form-control" placeholder="Variable" name="test[env][${test_env_row}][variable]" value="" data-name="variable"></td>
+        <td><textarea class="form-control" name="test[env][${test_env_row}][value]" data-name="value"></textarea></td>
         <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#test-env-row-${test_env_row}').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
   </tr>
           `;
