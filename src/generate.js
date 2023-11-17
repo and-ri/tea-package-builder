@@ -31,10 +31,10 @@ const generate = () => {
   }
 
   if (formData.package.display_name) {
-    yml += "display-name: " + formData.package.display_name + "\n";
+    yml += "\ndisplay-name: " + formData.package.display_name + "\n";
   }
 
-  yml += "versions:\n";
+  yml += "\nversions:\n";
   if (formData.version.type == 'value') {
     yml += `  - ${formData.version.value}\n`;
   } else {
@@ -59,7 +59,7 @@ const generate = () => {
   }
 
   if (formData.platforms) {
-    yml += 'platforms:\n';
+    yml += '\nplatforms:\n';
     if (formData.platforms.darwin && formData.platforms.linux) {
       if (formData.platforms.darwin.x86_64 && formData.platforms.darwin.aarch64) {
         yml += `  - darwin\n`;
@@ -240,7 +240,7 @@ const generate = () => {
       Object.keys(runtime.linux_x86_64).length > 0 ||
       Object.keys(runtime.linux_aarch64).length > 0
     ) {
-      yml += "dependencies:\n";
+      yml += "\ndependencies:\n";
     }
 
     if (Object.keys(runtime.all).length > 0) {
@@ -298,7 +298,7 @@ const generate = () => {
     }
   }
 
-  yml += "build:\n";
+  yml += "\nbuild:\n";
 
   if (formData.dependencies) {
     // Build
@@ -530,7 +530,7 @@ const generate = () => {
   }
 
   if (formData.provides) {
-    yml += "provides:\n";
+    yml += "\nprovides:\n";
 
     for (var key in formData.provides) {
       if (formData.provides.hasOwnProperty(key)) {
@@ -542,7 +542,7 @@ const generate = () => {
   }
 
   if (formData.test) {
-    yml += "test:\n";
+    yml += "\ntest:\n";
 
     // Test
     testDep = {

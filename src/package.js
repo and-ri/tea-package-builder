@@ -104,6 +104,7 @@ const package = {
             for (const key in load_package.dependencies) {
                 const item = load_package.dependencies[key];
                 addDependency('#dependencies');
+                $('#dependencies > tbody > tr:last-child img[data-name="image"]').attr('src', 'https://gui.tea.xyz/prod/'+item.value+'/128x128.webp');
                 $('#dependencies > tbody > tr:last-child input[data-name="value"]').val(item.value);
                 $('#dependencies > tbody > tr:last-child input[data-name="version"]').val(item.version);
 
