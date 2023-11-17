@@ -71,13 +71,13 @@ const addDependency = (element) => {
       result = autocomplete($(this).val());
 
       html =
-        '<div class="autocomplete-result position-absolute start-0 mt-3 p-3 rounded-3">';
+        '<div class="autocomplete-result position-absolute start-0 mt-3 p-3 rounded-3" style="z-index:10">';
 
       if (result.length > 0) {
         result.map((item) => {
           html += `
             <div>
-              <button type="button" class="btn btn-sm border-0" onclick="$(this).parent().parent().parent().find('.autocomplete').val('${item}');$(this).parent().parent().parent().find('.image').attr('src', 'https://gui.tea.xyz/prod/${item}/128x128.webp');$(this).parent().parent().remove();generate()">
+              <button type="button" class="btn btn-sm border-0 hstack" onclick="$(this).parent().parent().parent().find('.autocomplete').val('${item}');$(this).parent().parent().parent().find('.image').attr('src', 'https://gui.tea.xyz/prod/${item}/128x128.webp');$(this).parent().parent().remove();generate()">
                 <img src="https://gui.tea.xyz/prod/${item}/128x128.webp" alt="${item}" width="32" height="32" style="margin-right: .5rem">
                 ${item}
               </button>

@@ -36,6 +36,11 @@ $(function () {
   $('#btnLoad').on('click', function () {
     package.modal();
   });
+
+  // Remove dropdown when clicked outside
+  $(document).on('click', function(event) {
+    $('.autocomplete-result').remove();
+  });
 });
 
 const getPantry = () => {
