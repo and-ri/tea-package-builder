@@ -30,7 +30,12 @@ let dep_row = 0;
 const addDependency = (element) => {
   let html = `
             <tr id="dependency-row-${dep_row}">
-                  <td class="position-relative"><input type="text" class="form-control form-control-sm autocomplete" placeholder="Name" data-name="value" name="dependencies[${dep_row}][value]"></td>
+                  <td class="position-relative">
+                    <div class="hstack gap-2">
+                      <img src="./images/link.png" data-name="image" class="image" width="32" height="32">
+                      <input type="text" class="form-control form-control-sm autocomplete" placeholder="Name" data-name="value" name="dependencies[${dep_row}][value]">
+                    </div>  
+                  </td>
                   <td><input type="text" class="form-control form-control-sm" placeholder="Version" data-name="version" name="dependencies[${dep_row}][version]"></td>
                   <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/darwin/x86_64" name="dependencies[${dep_row}][runtime][darwin][x86_64]"></td>
                   <td class="text-center pt-3"><input type="checkbox" class="form-check-input" data-name="runtime/darwin/aarch64" name="dependencies[${dep_row}][runtime][darwin][aarch64]"></td>
@@ -70,7 +75,13 @@ const addDependency = (element) => {
 
       if (result.length > 0) {
         result.map((item) => {
-          html += `<div><button type="button" class="btn btn-sm border-0" onclick="$(this).parent().parent().parent().find('.autocomplete').val('${item}');$(this).parent().parent().remove();generate()">${item}</button></div>`;
+          html += `
+            <div>
+              <button type="button" class="btn btn-sm border-0" onclick="$(this).parent().parent().parent().find('.autocomplete').val('${item}');$(this).parent().parent().parent().find('.image').attr('src', 'https://gui.tea.xyz/prod/${item}/128x128.webp');$(this).parent().parent().remove();generate()">
+                <img src="https://gui.tea.xyz/prod/${item}/128x128.webp" alt="${item}" width="32" height="32" style="margin-right: .5rem">
+                ${item}
+              </button>
+            </div>`;
         });
       } else {
         html += `<div>No results!</div>`;
