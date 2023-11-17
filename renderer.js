@@ -51,9 +51,6 @@ const getPantry = () => {
     .then((response) => response.json())
     .then((data) => {
       pantry = data;
-      
-      // Let's add it manually
-      pantry.push('tea.xyz/gx/make');
     })
     .catch((error) => {
       console.error("Error:", error);
