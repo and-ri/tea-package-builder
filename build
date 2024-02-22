@@ -2,17 +2,20 @@
 
 PLATFORM=$(uname -s)
 ARCH=$(uname -m)
+VERSION=0.1.5
 
 export PATH=./node_modules/.bin:$PATH
 
 echo "Building for $PLATFORM $ARCH"
 
-if [ "$PLATFORM" = "Darwin" ]; then
-  # Rewrite $ARCH to match Electron's platform list
-  if [ "$ARCH" = "x86_64" ]; then
-    ARCH="x64"
-  fi
+# Rewrite $ARCH to match Electron's platform list
+if [ "$ARCH" = "x86_64" ]; then
+  ARCH="x64"
+fi
 
+npm install
+
+if [ "$PLATFORM" = "Darwin" ]; then
   # Build the app
   npm run make
 
@@ -26,9 +29,23 @@ if [ "$PLATFORM" = "Darwin" ]; then
     --overwrite \
     --debug
 
+  # Clean up
   rm -rf ./out/tea-package-builder-darwin-${ARCH} ./out/make
 
+  # Rename the DMG
   mv ./out/electron-installer-dmg/TeaPackageBuilder.dmg ./out/electron-installer-dmg/TeaPackageBuilder-${PLATFORM}-${ARCH}.dmg
+
+elif [ "$PLATFORM" = "Linux" ]; then
+  # Build the app
+  npm run make
+
+  if [ "$ARCH" = "x64" ]; then
+    # Rename the deb
+    mv ./out/make/deb/${ARCH}/tea-package-builder_${VERSION}_amd64.deb ./out/TeaPackageBuilder-${PLATFORM}-${ARCH}.deb
+  fi
+
+  # Clean up
+  rm -rf ./out/make ./out/tea-package-builder-linux-${ARCH}
 fi
 
 
