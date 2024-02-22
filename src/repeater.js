@@ -170,16 +170,16 @@ const presets = {
   configure: [
     '--disable-debug',
     '--disable-dependency-tracking',
-    '--prefix="{{prefix}}"',
-    '--libdir="{{prefix}}/lib"'
+    '--prefix={{prefix}}',
+    '--libdir={{prefix}}/lib'
   ],
   cargo: [
     '--locked',
-    '--root="{{prefix}}"',
+    '--root={{prefix}}',
     '--path=.'
   ],
   cmake: [
-    '-DCMAKE_INSTALL_PREFIX="{{prefix}}',
+    '-DCMAKE_INSTALL_PREFIX={{prefix}}',
     '-DCMAKE_INSTALL_LIBDIR=lib',
     '-DCMAKE_BUILD_TYPE=Release',
     '-DCMAKE_FIND_FRAMEWORK=LAST',
@@ -189,11 +189,11 @@ const presets = {
   ],
   go: [
     '-trimpath',
-    '-o="{{prefix}}/bin/<name>"'
+    '-o={{prefix}}/bin/<name>'
   ],
   meson: [
-    '--prefix="{{prefix}}"',
-    '--libdir="{{prefix}}/lib"',
+    '--prefix={{prefix}}',
+    '--libdir={{prefix}}/lib',
     '--buildtype=release',
     '--wrap-mode=nofallback'
   ]
