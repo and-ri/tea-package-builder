@@ -113,16 +113,16 @@ const package = {
                 const architectures = ['x86_64', 'aarch64'];
 
                 variations.forEach(variation => {
-                platforms.forEach(platform => {
-                    architectures.forEach(architecture => {
-                    const inputElement = $(`#dependencies > tbody > tr:last-child input[data-name="${variation}/${platform}/${architecture}"]`);
-                    if (inputElement.length) {
-                        inputElement.prop('checked', item[variation]?.[platform]?.[architecture] || false);
-                    } else {
-                        console.log(`Input element not found for ${variation}/${platform}/${architecture}`);
-                    }
+                    platforms.forEach(platform => {
+                        architectures.forEach(architecture => {
+                        const inputElement = $(`#dependencies > tbody > tr:last-child input[data-name="${variation}/${platform}/${architecture}"]`);
+                        if (inputElement.length) {
+                            inputElement.prop('checked', item[variation]?.[platform]?.[architecture] || false);
+                        } else {
+                            console.log(`Input element not found for ${variation}/${platform}/${architecture}`);
+                        }
+                        });
                     });
-                });
                 });
             }
         }
@@ -147,6 +147,20 @@ const package = {
 
                 $('#env > tbody > tr:last-child input[data-name="variable"]').val(item.variable);
                 $('#env > tbody > tr:last-child textarea[data-name="value"]').text(item.value);
+
+                const platforms = ['darwin', 'linux'];
+                const architectures = ['x86_64', 'aarch64'];
+
+                platforms.forEach(platform => {
+                    architectures.forEach(architecture => {
+                    const inputElement = $(`#env > tbody > tr:last-child input[data-name="build/env/${platform}/${architecture}"]`);
+                    if (inputElement.length) {
+                        inputElement.prop('checked', item[platform]?.[architecture] == 'on' || false);
+                    } else {
+                        console.log(`Input element not found for ${platform}/${architecture}`);
+                    }
+                    });
+                });
             }
         }
 

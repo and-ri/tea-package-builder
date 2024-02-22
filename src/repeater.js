@@ -143,10 +143,34 @@ let build_env_row = 0;
 const addBuildEnv = (element) => {
   let html = `
       <tr id="build-env-row-${build_env_row}">
-        <td><input type="text" class="form-control" placeholder="Variable" name="build[env][${build_env_row}][variable]" value="" data-name="variable"></td>
+        <td>
+          <input type="text" class="form-control" placeholder="Variable" name="build[env][${build_env_row}][variable]" value="" data-name="variable">
+          <table class="table table-bordered small mt-3">
+            <thead class="fw-semibold">
+              <tr>
+                <td colspan="2">darwin</td>
+                <td colspan="2">linux</td>
+              </tr>
+              <tr>
+                <td>x86-64</td>
+                <td>aarch64</td>
+                <td>x86-64</td>
+                <td>aarch64</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center pt-2"><input type="checkbox" class="form-check-input" name="build[env][${build_env_row}][darwin][x86_64]" data-name="build/env/darwin/x86_64"></td>
+                <td class="text-center pt-2"><input type="checkbox" class="form-check-input" name="build[env][${build_env_row}][darwin][aarch64]" data-name="build/env/darwin/aarch64"></td>
+                <td class="text-center pt-2"><input type="checkbox" class="form-check-input" name="build[env][${build_env_row}][linux][x86_64]" data-name="build/env/linux/x86_64"></td>
+                <td class="text-center pt-2"><input type="checkbox" class="form-check-input" name="build[env][${build_env_row}][linux][aarch64]" data-name="build/env/linux/aarch64"></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
         <td><textarea class="form-control" name="build[env][${build_env_row}][value]" data-name="value"></textarea></td>
         <td><button type="button" class="btn btn-sm btn-danger" onclick="$('#build-env-row-${build_env_row}').remove();generate();"><i class="bi bi-trash3"></i> Remove</button></td>
-  </tr>
+      </tr>
           `;
 
   $(`${element} > tbody`).append(html);

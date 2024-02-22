@@ -105,131 +105,11 @@ const generate = () => {
     }
   }
 
-  if (formData.dependencies) {
-    // Runtime
-    let runtime = {
-      all: [],
-      darwin: [],
-      linux: [],
-      darwin_x86_64: [],
-      darwin_aarch64: [],
-      linux_x86_64: [],
-      linux_aarch64: [],
-    };
+  // Format dependencies
+  format.deps(formData.dependencies);
 
-    for (var key in formData.dependencies) {
-      if (formData.dependencies.hasOwnProperty(key)) {
-        var item = formData.dependencies[key];
-        if (item.runtime) {
-          elem = item.runtime;
-          if (elem.darwin && elem.linux) {
-            if (
-              elem.darwin.x86_64 &&
-              elem.darwin.aarch64 &&
-              elem.linux.x86_64 &&
-              elem.linux.aarch64
-            ) {
-              runtime.all.push({ value: item.value, version: item.version });
-            } else {
-              if (elem.darwin.x86_64 && elem.darwin.aarch64) {
-                runtime.darwin.push({
-                  value: item.value,
-                  version: item.version,
-                });
-                elem.linux.x86_64
-                  ? runtime.linux_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.linux.aarch64
-                  ? runtime.linux_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-              } else if (elem.linux.x86_64 && elem.linux.aarch64) {
-                runtime.linux.push({
-                  value: item.value,
-                  version: item.version,
-                });
-                elem.darwin.x86_64
-                  ? runtime.darwin_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.darwin.aarch64
-                  ? runtime.darwin_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-              } else {
-                elem.darwin.x86_64
-                  ? runtime.darwin_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.darwin.aarch64
-                  ? runtime.darwin_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.linux.x86_64
-                  ? runtime.linux_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.linux.aarch64
-                  ? runtime.linux_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-              }
-            }
-          } else if (elem.darwin) {
-            if (elem.darwin.x86_64 && elem.darwin.aarch64) {
-              runtime.darwin.push({ value: item.value, version: item.version });
-            } else {
-              elem.darwin.x86_64
-                ? runtime.darwin_x86_64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-              elem.darwin.aarch64
-                ? runtime.darwin_aarch64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-            }
-          } else if (elem.linux) {
-            if (elem.linux.x86_64 && elem.linux.aarch64) {
-              runtime.linux.push({ value: item.value, version: item.version });
-            } else {
-              elem.linux.x86_64
-                ? runtime.linux_x86_64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-              elem.linux.aarch64
-                ? runtime.linux_aarch64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-            }
-          }
-        }
-      }
-    }
+  if (formData.dependencies) {
+    runtime = format.get("runtime");
 
     if (
       Object.keys(runtime.all).length > 0 ||
@@ -302,123 +182,8 @@ const generate = () => {
 
   if (formData.dependencies) {
     // Build
-    let build = {
-      all: [],
-      darwin: [],
-      linux: [],
-      darwin_x86_64: [],
-      darwin_aarch64: [],
-      linux_x86_64: [],
-      linux_aarch64: [],
-    };
+    build = format.get("build");
 
-    for (var key in formData.dependencies) {
-      if (formData.dependencies.hasOwnProperty(key)) {
-        var item = formData.dependencies[key];
-        if (item.build) {
-          elem = item.build;
-          if (elem.darwin && elem.linux) {
-            if (
-              elem.darwin.x86_64 &&
-              elem.darwin.aarch64 &&
-              elem.linux.x86_64 &&
-              elem.linux.aarch64
-            ) {
-              build.all.push({ value: item.value, version: item.version });
-            } else {
-              if (elem.darwin.x86_64 && elem.darwin.aarch64) {
-                build.darwin.push({ value: item.value, version: item.version });
-                elem.linux.x86_64
-                  ? build.linux_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.linux.aarch64
-                  ? build.linux_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-              } else if (elem.linux.x86_64 && elem.linux.aarch64) {
-                build.linux.push({ value: item.value, version: item.version });
-                elem.darwin.x86_64
-                  ? build.darwin_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.darwin.aarch64
-                  ? build.darwin_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-              } else {
-                elem.darwin.x86_64
-                  ? build.darwin_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.darwin.aarch64
-                  ? build.darwin_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.linux.x86_64
-                  ? build.linux_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.linux.aarch64
-                  ? build.linux_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-              }
-            }
-          } else if (elem.darwin) {
-            if (elem.darwin.x86_64 && elem.darwin.aarch64) {
-              build.darwin.push({ value: item.value, version: item.version });
-            } else {
-              elem.darwin.x86_64
-                ? build.darwin_x86_64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-              elem.darwin.aarch64
-                ? build.darwin_aarch64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-            }
-          } else if (elem.linux) {
-            if (elem.linux.x86_64 && elem.linux.aarch64) {
-              build.linux.push({ value: item.value, version: item.version });
-            } else {
-              elem.linux.x86_64
-                ? build.linux_x86_64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-              elem.linux.aarch64
-                ? build.linux_aarch64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-            }
-          }
-        }
-      }
-    }
     if (
       Object.keys(build.all).length > 0 ||
       Object.keys(build.darwin).length > 0 ||
@@ -511,10 +276,25 @@ const generate = () => {
   }
   if (formData.build && formData.build.env) {
     yml += "  env:\n";
-    for (var key in formData.build.env) {
-      if (formData.build.env.hasOwnProperty(key)) {
-        var item = formData.build.env[key];
 
+    buildEnvPlatform = {
+      all: [],
+      darwin: [],
+      linux: [],
+      darwin_x86_64: [],
+      darwin_aarch64: [],
+      linux_x86_64: [],
+      linux_aarch64: [],
+      aarch64: [],
+      x86_64: []
+    };
+
+    format.env(formData.build.env);
+
+    buildEnv = format.getEnv();
+
+    if (Object.keys(buildEnv.all).length > 0) {
+      buildEnv.all.map((item) => {
         let values = item.value.split(/\r\n|\r|\n/g);
 
         if (values.length > 1) {
@@ -523,9 +303,105 @@ const generate = () => {
             yml += `      - ${item}\n`;
           });
         } else {
-          yml += `    ${item.variable}: ${values}\n`;
+          yml += `    ${item.variable}: ${item.value}\n`;
         }
-      }
+      });
+    }
+
+    if (Object.keys(buildEnv.darwin).length > 0) {
+      yml += "    darwin:\n";
+      buildEnv.darwin.map((item) => {
+        let values = item.value.split(/\r\n|\r|\n/g);
+
+        if (values.length > 1) {
+          yml += `      ${item.variable}:\n`;
+          values.map((item) => {
+            yml += `        - ${item}\n`;
+          });
+        } else {
+          yml += `      ${item.variable}: ${item.value}\n`;
+        }
+      });
+    }
+
+    if (Object.keys(buildEnv.linux).length > 0) {
+      yml += "    linux:\n";
+      buildEnv.linux.map((item) => {
+        let values = item.value.split(/\r\n|\r|\n/g);
+
+        if (values.length > 1) {
+          yml += `      ${item.variable}:\n`;
+          values.map((item) => {
+            yml += `        - ${item}\n`;
+          });
+        } else {
+          yml += `      ${item.variable}: ${item.value}\n`;
+        }
+      });
+    }
+
+    if (Object.keys(buildEnv.darwin_x86_64).length > 0) {
+      yml += "    darwin/x86-64:\n";
+      buildEnv.darwin_x86_64.map((item) => {
+        let values = item.value.split(/\r\n|\r|\n/g);
+
+        if (values.length > 1) {
+          yml += `      ${item.variable}:\n`;
+          values.map((item) => {
+            yml += `        - ${item}\n`;
+          });
+        } else {
+          yml += `      ${item.variable}: ${item.value}\n`;
+        }
+      });
+    } 
+
+    if (Object.keys(buildEnv.darwin_aarch64).length > 0) {
+      yml += "    darwin/aarch64:\n";
+      buildEnv.darwin_aarch64.map((item) => {
+        let values = item.value.split(/\r\n|\r|\n/g);
+
+        if (values.length > 1) {
+          yml += `      ${item.variable}:\n`;
+          values.map((item) => {
+            yml += `        - ${item}\n`;
+          });
+        } else {
+          yml += `      ${item.variable}: ${item.value}\n`;
+        }
+      });
+    }
+
+    if (Object.keys(buildEnv.linux_x86_64).length > 0) {
+      yml += "    linux/x86-64:\n";
+      buildEnv.linux_x86_64.map((item) => {
+        let values = item.value.split(/\r\n|\r|\n/g);
+
+        if (values.length > 1) {
+          yml += `      ${item.variable}:\n`;
+          values.map((item) => {
+            yml += `        - ${item}\n`;
+          });
+        } else {
+          yml += `      ${item.variable}: ${item.value}\n`;
+        }
+      });
+    }
+
+    if (Object.keys(buildEnv.linux_aarch64).length > 0) {
+      yml += "    linux/aarch64:\n";
+      buildEnv.linux_aarch64.map((item) => {
+        let values = item.value.split(/\r\n|\r|\n/g);
+
+        if (values.length > 1) {
+          yml += `      ${item.variable}:\n`;
+          values.map((item) => {
+            yml += `        - ${item}\n`;
+          });
+        } else {
+          yml += `      ${item.variable}: ${item.value}\n`;
+        }
+      });
     }
   }
 
@@ -545,129 +421,7 @@ const generate = () => {
     yml += "\ntest:\n";
 
     // Test
-    testDep = {
-      all: [],
-      darwin: [],
-      linux: [],
-      darwin_x86_64: [],
-      darwin_aarch64: [],
-      linux_x86_64: [],
-      linux_aarch64: [],
-    };
-
-    for (var key in formData.dependencies) {
-      if (formData.dependencies.hasOwnProperty(key)) {
-        var item = formData.dependencies[key];
-        if (item.testDep) {
-          elem = item.testDep;
-          if (elem.darwin && elem.linux) {
-            if (
-              elem.darwin.x86_64 &&
-              elem.darwin.aarch64 &&
-              elem.linux.x86_64 &&
-              elem.linux.aarch64
-            ) {
-              testDep.all.push({ value: item.value, version: item.version });
-            } else {
-              if (elem.darwin.x86_64 && elem.darwin.aarch64) {
-                testDep.darwin.push({
-                  value: item.value,
-                  version: item.version,
-                });
-                elem.linux.x86_64
-                  ? testDep.linux_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.linux.aarch64
-                  ? testDep.linux_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-              } else if (elem.linux.x86_64 && elem.linux.aarch64) {
-                testDep.linux.push({
-                  value: item.value,
-                  version: item.version,
-                });
-                elem.darwin.x86_64
-                  ? testDep.darwin_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.darwin.aarch64
-                  ? testDep.darwin_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-              } else {
-                elem.darwin.x86_64
-                  ? testDep.darwin_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.darwin.aarch64
-                  ? testDep.darwin_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.linux.x86_64
-                  ? testDep.linux_x86_64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-                elem.linux.aarch64
-                  ? testDep.linux_aarch64.push({
-                      value: item.value,
-                      version: item.version,
-                    })
-                  : null;
-              }
-            }
-          } else if (elem.darwin) {
-            if (elem.darwin.x86_64 && elem.darwin.aarch64) {
-              testDep.darwin.push({ value: item.value, version: item.version });
-            } else {
-              elem.darwin.x86_64
-                ? testDep.darwin_x86_64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-              elem.darwin.aarch64
-                ? testDep.darwin_aarch64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-            }
-          } else if (elem.linux) {
-            if (elem.linux.x86_64 && elem.linux.aarch64) {
-              testDep.linux.push({ value: item.value, version: item.version });
-            } else {
-              elem.linux.x86_64
-                ? testDep.linux_x86_64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-              elem.linux.aarch64
-                ? testDep.linux_aarch64.push({
-                    value: item.value,
-                    version: item.version,
-                  })
-                : null;
-            }
-          }
-        }
-      }
-    }
+    testDep = format.get("test");
 
     if (
       Object.keys(testDep.all).length > 0 ||
