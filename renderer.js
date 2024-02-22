@@ -63,25 +63,6 @@ const autocomplete = (text) => {
 
   let search = [];
 
-  // ex:
-  // [
-  //   {
-  //     "project": "litecli.com",
-  //     "birthtime": "2024-02-21T16:25:10.000Z",
-  //     "name": "litecli",
-  //     "description": "SQLite database CLI tool."
-  //   },
-  //   {
-  //     "project": "snyk.io",
-  //     "birthtime": "2024-02-21T16:11:22.000Z",
-  //     "name": "snyk",
-  //     "description": "Snyk: Developer Security Accelerator.",
-  //     "labels": [
-  //       "node"
-  //     ]
-  //   },
-  // ]
-
   const filteredArray = pantry.filter(item => item.project.includes(text));
 
   filteredArray.slice(0, 10).forEach((item) => {

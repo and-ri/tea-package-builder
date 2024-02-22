@@ -1,6 +1,6 @@
 {
   "name": "tea-package-builder",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Tea Package Builder is a tool that helps create packages for Tea.xyz quickly and conveniently. The program fetches an up-to-date list of packages from tea.xyz, enabling convenient input fields with autocomplete for dependencies.",
   "main": "main.js",
   "scripts": {
