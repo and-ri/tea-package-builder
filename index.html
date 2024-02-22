@@ -13,361 +13,425 @@
 </head>
 
 <body>
-    <div class="container my-5">
-        <div class="hstack gap-3 mb-3" data-bs-theme=dark>
-          <div class="item"><button type="button" id="btnSave" class="btn btn-success"><i class="bi bi-file-earmark-arrow-down"></i> Save</button></div>
-          <div class="item"><button type="button" id="btnLoad" class="btn btn-info"><i class="bi bi-file-earmark-arrow-up"></i> Load</button></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <form id="config">
-                    <fieldset>
-                        <legend>Package info</legend>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="Name" name="package[name]" value="">
-                            <label>Name</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="Display name" name="package[display_name]" value="">
-                            <label>Display name</label>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Distributable</legend>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="URL" name="package[url]" value="">
-                            <label>URL</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" placeholder="Strip" name="package[strip]" value="1">
-                            <label>Strip</label>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Versions</legend>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" name="version[type]">
-                                <option value="github">GitHub</option>
-                                <option value="gitlab">GitLab</option>
-                                <option value="npm">NPM</option>
-                                <option value="url" selected>URL</option>
-                                <option value="value">Value</option>
-                            </select>
-                            <label>Type</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="Value" name="version[value]" value="">
-                            <label>Value</label>
-                        </div>
-                        <div class="rounded-3 p-3 border mb-3">
-                            <p class="fs-5">Need match?</p>
-                            <div class="form-check form-switch mb-3">
-                                <input class="form-check-input hide-switch" type="checkbox" role="switch" name="match[enabled]">
-                                <label class="form-check-label"></label>
+    <header class="sticky-top shadow">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <span class="navbar-brand">Tea Package Builder 0.1</span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="nav nav-pills" id="navTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="builder-tab" data-bs-toggle="tab" data-bs-target="#builder" type="button" role="tab" aria-controls="builder" aria-selected="true">
+                      <i class="bi bi-gear"></i> Builder
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="finder-tab" data-bs-toggle="tab" data-bs-target="#finder" type="button" role="tab" aria-controls="finder" aria-selected="false">
+                      <i class="bi bi-search"></i> Finder
+                    </button>
+                  </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="tab-content">
+      <!-- Builder -->
+      <div class="tab-pane active show" id="builder" role="tabpanel" aria-labelledby="builder-tab" tabindex="0">
+        <div class="container my-5">
+            <div class="hstack justify-content-between border p-3 mb-3">
+              <legend class="m-0 fs-1">Package:</legend>
+              <div class="hstack gap-3 justify-content-end w-50" data-bs-theme=dark>
+                <div class="item"><button type="button" id="btnSave" class="btn btn-sm btn-success"><i class="bi bi-file-earmark-arrow-down"></i> Save</button></div>
+                <div class="item"><button type="button" id="btnLoad" class="btn btn-sm btn-info"><i class="bi bi-file-earmark-arrow-up"></i> Load</button></div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form id="config">
+                        <fieldset>
+                            <legend>Package info</legend>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" placeholder="Name" name="package[name]" value="">
+                                <label>Name</label>
                             </div>
-                            <div class="form-floating mb-3 hide">
-                                <input type="text" class="form-control" placeholder="Value" name="match[value]" value="">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" placeholder="Display name" name="package[display_name]" value="">
+                                <label>Display name</label>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Distributable</legend>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" placeholder="URL" name="package[url]" value="">
+                                <label>URL</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" placeholder="Strip" name="package[strip]" value="1">
+                                <label>Strip</label>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Versions</legend>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" name="version[type]">
+                                    <option value="github">GitHub</option>
+                                    <option value="gitlab">GitLab</option>
+                                    <option value="npm">NPM</option>
+                                    <option value="url" selected>URL</option>
+                                    <option value="value">Value</option>
+                                </select>
+                                <label>Type</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" placeholder="Value" name="version[value]" value="">
                                 <label>Value</label>
                             </div>
-                        </div>
-                        <div class="rounded-3 p-3 border mb-3">
-                            <p class="fs-5">Need strip?</p>
-                            <div class="form-check form-switch mb-3">
-                                <input class="form-check-input hide-switch" type="checkbox" role="switch" name="stripe[enabled]">
-                                <label class="form-check-label"></label>
+                            <div class="rounded-3 p-3 border mb-3">
+                                <p class="fs-5">Need match?</p>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input hide-switch" type="checkbox" role="switch" name="match[enabled]">
+                                    <label class="form-check-label"></label>
+                                </div>
+                                <div class="form-floating mb-3 hide">
+                                    <input type="text" class="form-control" placeholder="Value" name="match[value]" value="">
+                                    <label>Value</label>
+                                </div>
                             </div>
-                            <div class="table-responsive hide">
-                                <table class="table table-bordered small" id="strip">
-                                    <thead class="fw-semibold">
+                            <div class="rounded-3 p-3 border mb-3">
+                                <p class="fs-5">Need strip?</p>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input hide-switch" type="checkbox" role="switch" name="stripe[enabled]">
+                                    <label class="form-check-label"></label>
+                                </div>
+                                <div class="table-responsive hide">
+                                    <table class="table table-bordered small" id="strip">
+                                        <thead class="fw-semibold">
+                                            <tr>
+                                                <td>Value</td>
+                                                <td>Remove</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <button type="button" class="btn btn-sm btn-dark" onclick="addStrip('#strip')"><i class="bi bi-plus-lg"></i> Add strip</button>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                          <legend>Platforms</legend>
+                          <div class="table-responsive">
+                            <table class="table table-bordered">
+                              <thead class="fw-semibold">
+                                <tr>
+                                  <td colspan="2">darwin</td>
+                                  <td colspan="2">linux</td>
+                                </tr>
+                                <tr>
+                                  <td>x86-64</td>
+                                  <td>aarch64</td>
+                                  <td>x86-64</td>
+                                  <td>aarch64</td>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="text-center"><input type="checkbox" name="platforms[darwin][x86_64]" class="form-check-input"></td>
+                                  <td class="text-center"><input type="checkbox" name="platforms[darwin][aarch64]" class="form-check-input"></td>
+                                  <td class="text-center"><input type="checkbox" name="platforms[linux][x86_64]" class="form-check-input"></td>
+                                  <td class="text-center"><input type="checkbox" name="platforms[linux][aarch64]" class="form-check-input"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                      </fieldset>
+                        <fieldset>
+                            <legend>Dependencies</legend>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hovered" id="dependencies">
+                                    <thead class="small fw-semibold">
                                         <tr>
-                                            <td>Value</td>
-                                            <td>Remove</td>
+                                            <td rowspan="3">Package</td>
+                                            <td rowspan="3">Version</td>
+                                            <td colspan="4">Runtime</td>
+                                            <td colspan="4">Build</td>
+                                            <td colspan="4">Test</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">darwin</td>
+                                            <td colspan="2">linux</td>
+                                            <td colspan="2">darwin</td>
+                                            <td colspan="2">linux</td>
+                                            <td colspan="2">darwin</td>
+                                            <td colspan="2">linux</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>x86-64</td>
+                                            <td>aarch64</td>
+                                            <td>x86-64</td>
+                                            <td>aarch64</td>
+                                            <td>x86-64</td>
+                                            <td>aarch64</td>
+                                            <td>x86-64</td>
+                                            <td>aarch64</td>
+                                            <td>x86-64</td>
+                                            <td>aarch64</td>
+                                            <td>x86-64</td>
+                                            <td>aarch64</td>
+                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="2">
-                                                <button type="button" class="btn btn-sm btn-dark" onclick="addStrip('#strip')"><i class="bi bi-plus-lg"></i> Add strip</button>
+                                            <td colspan="15">
+                                                <button type="button" class="btn btn-sm btn-dark" onclick="addDependency('#dependencies')"><i class="bi bi-plus-lg"></i> Add dependency</button>
                                             </td>
                                         </tr>
                                     </tfoot>
                                 </table>
-
                             </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                      <legend>Platforms</legend>
-                      <div class="table-responsive">
-                        <table class="table table-bordered">
-                          <thead class="fw-semibold">
-                            <tr>
-                              <td colspan="2">darwin</td>
-                              <td colspan="2">linux</td>
-                            </tr>
-                            <tr>
-                              <td>x86-64</td>
-                              <td>aarch64</td>
-                              <td>x86-64</td>
-                              <td>aarch64</td>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td class="text-center"><input type="checkbox" name="platforms[darwin][x86_64]" class="form-check-input"></td>
-                              <td class="text-center"><input type="checkbox" name="platforms[darwin][aarch64]" class="form-check-input"></td>
-                              <td class="text-center"><input type="checkbox" name="platforms[linux][x86_64]" class="form-check-input"></td>
-                              <td class="text-center"><input type="checkbox" name="platforms[linux][aarch64]" class="form-check-input"></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                  </fieldset>
-                    <fieldset>
-                        <legend>Dependencies</legend>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hovered" id="dependencies">
-                                <thead class="small fw-semibold">
-                                    <tr>
-                                        <td rowspan="3">Package</td>
-                                        <td rowspan="3">Version</td>
-                                        <td colspan="4">Runtime</td>
-                                        <td colspan="4">Build</td>
-                                        <td colspan="4">Test</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">darwin</td>
-                                        <td colspan="2">linux</td>
-                                        <td colspan="2">darwin</td>
-                                        <td colspan="2">linux</td>
-                                        <td colspan="2">darwin</td>
-                                        <td colspan="2">linux</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>x86-64</td>
-                                        <td>aarch64</td>
-                                        <td>x86-64</td>
-                                        <td>aarch64</td>
-                                        <td>x86-64</td>
-                                        <td>aarch64</td>
-                                        <td>x86-64</td>
-                                        <td>aarch64</td>
-                                        <td>x86-64</td>
-                                        <td>aarch64</td>
-                                        <td>x86-64</td>
-                                        <td>aarch64</td>
-                                        <td></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="15">
-                                            <button type="button" class="btn btn-sm btn-dark" onclick="addDependency('#dependencies')"><i class="bi bi-plus-lg"></i> Add dependency</button>
-                                        </td>
-                                    </tr>
-                                </tfoot>
+                        </fieldset>
+                        <legend>Build working directory</legend>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" placeholder="Working directory" name="directory[build]" value="">
+                                <label>Working directory</label>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                          <legend>Build script</legend>
+                          <div class="table-responsive">
+                            <table class="table table-bordered" id="build">
+                              <thead class="fw-semibold">
+                                <tr>
+                                  <td>Command</td>
+                                  <td style="width: 15%">Remove</td>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <td colspan="2">
+                                    <button type="button" class="btn btn-sm btn-dark" onclick="addBuildCommand('#build')"><i class="bi bi-plus-lg"></i> Add command</button>
+                                  </td>
+                                </tr>
+                              </tfoot>
                             </table>
-                        </div>
-                    </fieldset>
-                    <legend>Build working directory</legend>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="Working directory" name="directory[build]" value="">
-                            <label>Working directory</label>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                      <legend>Build script</legend>
-                      <div class="table-responsive">
-                        <table class="table table-bordered" id="build">
-                          <thead class="fw-semibold">
-                            <tr>
-                              <td>Command</td>
-                              <td style="width: 15%">Remove</td>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                          <tfoot>
-                            <tr>
-                              <td colspan="2">
-                                <button type="button" class="btn btn-sm btn-dark" onclick="addBuildCommand('#build')"><i class="bi bi-plus-lg"></i> Add command</button>
-                              </td>
-                            </tr>
-                          </tfoot>
-                        </table>
-                      </div>
-                    </fieldset>
-                    <fieldset>
-                      <legend>Build envrimoment</legend>
-                      <div class="table-responsive">
-                        <table class="table table-bordered" id="env">
-                          <thead class="fw-semibold">
-                            <tr>
-                              <td>Variable</td>
-                              <td>Value</td>
-                              <td style="width: 15%">Remove</td>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                          <tfoot>
-                            <tr>
-                              <td colspan="3">
-                                <div class="hstack gap-3">
-                                  <div class="item">
-                                    <button type="button" class="btn btn-sm btn-dark" onclick="addBuildEnv('#env')"><i class="bi bi-plus-lg"></i> Add variable</button>
-                                  </div>
-                                  <div class="item">
-                                    <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#modalPresets"><i class="bi bi-collection"></i> Add preset variable</button>
-                                    <div class="modal fade" id="modalPresets" tabindex="-1" aria-labelledby="modalPresetsLabel" aria-hidden="true" data-bs-theme="dark">
-                                      <div class="modal-dialog">
-                                        <div class="modal-content bg-dark rounded-0">
-                                          <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="modalPresetsLabel">Preset variables</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                          </div>
-                                          <div class="modal-body">
-                                            <ul class="list-group">
-                                              <li class="list-group-item">
-                                                <input type="radio" class="btn-check" name="presets" value="configure" id="radio-preset-0" autocomplete="off">
-                                                <label class="btn btn-radiocheck" for="radio-preset-0">standart CONFIGURE args</label>
-                                              </li>
-                                              <li class="list-group-item">
-                                                <input type="radio" class="btn-check" name="presets" value="cargo" id="radio-preset-1" autocomplete="off">
-                                                <label class="btn btn-radiocheck" for="radio-preset-1">standart CARGO args</label>
-                                              </li>
-                                              <li class="list-group-item">
-                                                <input type="radio" class="btn-check" name="presets" value="cmake" id="radio-preset-2" autocomplete="off">
-                                                <label class="btn btn-radiocheck" for="radio-preset-2">standart CMAKE args</label>
-                                              </li>
-                                              <li class="list-group-item">
-                                                <input type="radio" class="btn-check" name="presets" value="go" id="radio-preset-3" autocomplete="off">
-                                                <label class="btn btn-radiocheck" for="radio-preset-3">standart GO args</label>
-                                              </li>
-                                              <li class="list-group-item">
-                                                <input type="radio" class="btn-check" name="presets" value="meson" id="radio-preset-4" autocomplete="off">
-                                                <label class="btn btn-radiocheck" for="radio-preset-4">standart MESON args</label>
-                                              </li>
-                                            </ul>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" onclick="addPresetArgs('#env')"><i class="bi bi-plus-lg"></i> Add</button>
+                          </div>
+                        </fieldset>
+                        <fieldset>
+                          <legend>Build envrimoment</legend>
+                          <div class="table-responsive">
+                            <table class="table table-bordered" id="env">
+                              <thead class="fw-semibold">
+                                <tr>
+                                  <td>Variable</td>
+                                  <td>Value</td>
+                                  <td style="width: 15%">Remove</td>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <td colspan="3">
+                                    <div class="hstack gap-3">
+                                      <div class="item">
+                                        <button type="button" class="btn btn-sm btn-dark" onclick="addBuildEnv('#env')"><i class="bi bi-plus-lg"></i> Add variable</button>
+                                      </div>
+                                      <div class="item">
+                                        <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#modalPresets"><i class="bi bi-collection"></i> Add preset variable</button>
+                                        <div class="modal fade" id="modalPresets" tabindex="-1" aria-labelledby="modalPresetsLabel" aria-hidden="true" data-bs-theme="dark">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content bg-dark rounded-0">
+                                              <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="modalPresetsLabel">Preset variables</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <ul class="list-group">
+                                                  <li class="list-group-item">
+                                                    <input type="radio" class="btn-check" name="presets" value="configure" id="radio-preset-0" autocomplete="off">
+                                                    <label class="btn btn-radiocheck" for="radio-preset-0">standart CONFIGURE args</label>
+                                                  </li>
+                                                  <li class="list-group-item">
+                                                    <input type="radio" class="btn-check" name="presets" value="cargo" id="radio-preset-1" autocomplete="off">
+                                                    <label class="btn btn-radiocheck" for="radio-preset-1">standart CARGO args</label>
+                                                  </li>
+                                                  <li class="list-group-item">
+                                                    <input type="radio" class="btn-check" name="presets" value="cmake" id="radio-preset-2" autocomplete="off">
+                                                    <label class="btn btn-radiocheck" for="radio-preset-2">standart CMAKE args</label>
+                                                  </li>
+                                                  <li class="list-group-item">
+                                                    <input type="radio" class="btn-check" name="presets" value="go" id="radio-preset-3" autocomplete="off">
+                                                    <label class="btn btn-radiocheck" for="radio-preset-3">standart GO args</label>
+                                                  </li>
+                                                  <li class="list-group-item">
+                                                    <input type="radio" class="btn-check" name="presets" value="meson" id="radio-preset-4" autocomplete="off">
+                                                    <label class="btn btn-radiocheck" for="radio-preset-4">standart MESON args</label>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-primary" onclick="addPresetArgs('#env')"><i class="bi bi-plus-lg"></i> Add</button>
+                                              </div>
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                          </tfoot>
-                        </table>
-                      </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Provides</legend>
-                        <div class="table-responsive">
-                          <table class="table table-bordered" id="provides">
-                            <thead class="fw-semibold">
-                              <tr>
-                                <td>Binary</td>
-                                <td style="width: 15%">Remove</td>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                            <tfoot>
-                              <tr>
-                                <td colspan="2">
-                                  <button type="button" class="btn btn-sm btn-dark" onclick="addBinary('#provides')"><i class="bi bi-plus-lg"></i> Add binary</button>
-                                </td>
-                              </tr>
-                            </tfoot>
-                          </table>
-                        </div>
-                      </fieldset>
-                    <fieldset>
-                        <legend>Test script</legend>
-                        <div class="table-responsive">
-                          <table class="table table-bordered" id="test">
-                            <thead class="fw-semibold">
-                              <tr>
-                                <td>Command</td>
-                                <td style="width: 15%">Remove</td>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                            <tfoot>
-                              <tr>
-                                <td colspan="2">
-                                  <button type="button" class="btn btn-sm btn-dark" onclick="addTestCommand('#test')"><i class="bi bi-plus-lg"></i> Add command</button>
-                                </td>
-                              </tr>
-                            </tfoot>
-                          </table>
-                        </div>
-                      </fieldset>
-                      <fieldset>
-                        <legend>Test envrimoment</legend>
-                        <div class="table-responsive">
-                          <table class="table table-bordered" id="testEnv">
-                            <thead class="fw-semibold">
-                              <tr>
-                                <td>Variable</td>
-                                <td>Value</td>
-                                <td style="width: 15%">Remove</td>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              
-                            </tbody>
-                            <tfoot>
-                              <tr>
-                                <td colspan="3">
-                                  <button type="button" class="btn btn-sm btn-dark" onclick="addTestEnv('#testEnv')"><i class="bi bi-plus-lg"></i> Add variable</button>
-                                </td>
-                              </tr>
-                            </tfoot>
-                          </table>
-                        </div>
-                      </fieldset>
-                </form>
-            </div>
-            <div class="col-md-12">
-                <div>1. Run init command:</div>
-                <code id="command">
-                    <pre class="copy">
+                                  </td>
+                                </tr>
+                              </tfoot>
+                            </table>
+                          </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Provides</legend>
+                            <div class="table-responsive">
+                              <table class="table table-bordered" id="provides">
+                                <thead class="fw-semibold">
+                                  <tr>
+                                    <td>Binary</td>
+                                    <td style="width: 15%">Remove</td>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                  <tr>
+                                    <td colspan="2">
+                                      <button type="button" class="btn btn-sm btn-dark" onclick="addBinary('#provides')"><i class="bi bi-plus-lg"></i> Add binary</button>
+                                    </td>
+                                  </tr>
+                                </tfoot>
+                              </table>
+                            </div>
+                          </fieldset>
+                        <fieldset>
+                            <legend>Test script</legend>
+                            <div class="table-responsive">
+                              <table class="table table-bordered" id="test">
+                                <thead class="fw-semibold">
+                                  <tr>
+                                    <td>Command</td>
+                                    <td style="width: 15%">Remove</td>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                  <tr>
+                                    <td colspan="2">
+                                      <button type="button" class="btn btn-sm btn-dark" onclick="addTestCommand('#test')"><i class="bi bi-plus-lg"></i> Add command</button>
+                                    </td>
+                                  </tr>
+                                </tfoot>
+                              </table>
+                            </div>
+                          </fieldset>
+                          <fieldset>
+                            <legend>Test envrimoment</legend>
+                            <div class="table-responsive">
+                              <table class="table table-bordered" id="testEnv">
+                                <thead class="fw-semibold">
+                                  <tr>
+                                    <td>Variable</td>
+                                    <td>Value</td>
+                                    <td style="width: 15%">Remove</td>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  
+                                </tbody>
+                                <tfoot>
+                                  <tr>
+                                    <td colspan="3">
+                                      <button type="button" class="btn btn-sm btn-dark" onclick="addTestEnv('#testEnv')"><i class="bi bi-plus-lg"></i> Add variable</button>
+                                    </td>
+                                  </tr>
+                                </tfoot>
+                              </table>
+                            </div>
+                          </fieldset>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div>1. Run init command:</div>
+                    <code id="command">
+                        <pre class="copy">
 
-                    </pre>
-                </code>
-                <div>2. Paste code:</div>
-                <code id="output">
-                    <pre class="copy">
+                        </pre>
+                    </code>
+                    <div>2. Paste code:</div>
+                    <code id="output">
+                        <pre class="copy">
 
-                    </pre>
-                </code>
-                <div>3. Run build command:</div>
-                <code id="build-command">
-                    <pre class="copy">
+                        </pre>
+                    </code>
+                    <div>3. Run build command:</div>
+                    <code id="build-command">
+                        <pre class="copy">
 
-                    </pre>
-                </code>
-                <div>4. Run test command:</div>
-                <code id="test-command">
-                    <pre class="copy">
+                        </pre>
+                    </code>
+                    <div>4. Run test command:</div>
+                    <code id="test-command">
+                        <pre class="copy">
 
-                    </pre>
-                </code>
+                        </pre>
+                    </code>
+                </div>
             </div>
         </div>
+      </div>
+      <!-- End Builder -->
+      <!-- Finder -->
+      <div class="tab-pane" id="finder" role="tabpanel" aria-labelledby="finder-tab" tabindex="0">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8">
+              <div id="finder-output" class="py-3">
+                <p class="text-center">
+                  Empty
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="bg-dark p-3 mt-3"> 
+                <div class="h4">Filter</div>
+                <div class="form-floating mb-3">
+                  <select class="form-select" id="period" placeholder="Period">
+                    <option value="30">30 days</option>
+                    <option value="90">90 days</option>
+                    <option value="365">365 days</option>
+                  </select>
+                  <label for="period" class="form-label">Period</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="number" class="form-control" id="minInstalls" value="1000" placeholder="Minimum installs">
+                  <label for="minInstalls" class="form-label">Minimum installs</label>
+                </div>
+                <button type="button" class="btn btn-primary" id="btnFind"><i class="bi bi-search"></i> Find</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Finder -->
     </div>
     <div class="modal fade" id="modalPackages" tabindex="-1" aria-labelledby="modalPackagesLabel" aria-hidden="true" data-bs-theme="dark">
       <div class="modal-dialog">
@@ -392,6 +456,7 @@
     <script src="./src/format.js"></script>
     <script src="./src/generate.js"></script>
     <script src="./src/package.js"></script>
+    <script src="./src/finder.js"></script>
 </body>
 
 </html>
