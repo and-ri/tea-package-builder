@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+
+PLATFORM=$(uname -s)
+ARCH=$(uname -m)
+
+export PATH=./node_modules/.bin:$PATH
+
+echo "Building for $PLATFORM $ARCH"
+
+if [ "$PLATFORM" = "Darwin" ]; then
+  # Rewrite $ARCH to match Electron's platform list
+  if [ "$ARCH" = "x86_64" ]; then
+    ARCH="x64"
+  fi
+
+  # Build the app
+  npm run make
+
+  # Create the DMG installer
+  electron-installer-dmg ./out/tea-package-builder-darwin-${ARCH}/tea-package-builder.app \
+    "TeaPackageBuilder" \
+    --out="./out/electron-installer-dmg/" \
+    --background="./images/installBackground658.png" \
+    --icon="./images/logo.icns" \
+    --title="Tea Package Builder" \
+    --overwrite \
+    --debug
+
+  rm -rf ./out/tea-package-builder-darwin-${ARCH} ./out/make
+
+  mv ./out/electron-installer-dmg/TeaPackageBuilder.dmg ./out/electron-installer-dmg/TeaPackageBuilder-${PLATFORM}-${ARCH}.dmg
+fi
+
+
