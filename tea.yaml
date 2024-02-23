@@ -1,0 +1,7 @@
+# https://tea.xyz/what-is-this-file
+# created with https://mash.pkgx.sh/mxcl/tea-register
+---
+version: 1.0.0
+codeOwners:
+  - '0xe580E35dC5477a42f0c9FBf905741D2507198d8e'  # ArionThinker
+quorum: 1
