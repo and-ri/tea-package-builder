@@ -509,9 +509,9 @@ const generate = () => {
 
   $("#output > pre").html(yml);
 
-  $("#command > pre").html(`pkg init ${formData.package.name}`);
+  $("#command > pre").html(`bk init ${formData.package.name}`);
 
-  $("#build-command > pre").html(`pkg build ${formData.package.name}`);
+  $("#build-command > pre").html(`bk build ${formData.package.name}`);
 
-  $("#test-command > pre").html(`pkg test ${formData.package.name}`);
+  $("#test-command > pre").html(`bk test ${formData.package.name}`);
 };
