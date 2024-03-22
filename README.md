@@ -75,6 +75,18 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) an
 
 ## :checkered_flag: Starting
 
+#### Run with pkgx
+```bash
+sh <(curl https://pkgx.sh) mash pkgxdev/run github.com/ArionThinker/tea-package-builder
+```
+
+#### Install with npm
+```bash
+$ npm install tea-package-builder
+$ npm run start
+```
+#### Build from source
+
 ```bash
 # Clone this project
 $ git clone https://github.com/ArionThinker/tea-package-builder
