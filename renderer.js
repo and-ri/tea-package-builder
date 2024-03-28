@@ -1,4 +1,8 @@
+window.$ = window.jQuery = require('jquery');
+
 var pantry;
+
+const PkgxPantry = require('pkgx-pantry');
 
 // Document ready
 $(function () {
@@ -43,34 +47,25 @@ $(function () {
   });
 });
 
-const getPantry = () => {
-
-  const url = "https://pkgx.dev/pkgs/index.json";
-
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
+const getPantry = async () => {
+  try {
+    await PkgxPantry.getPackages().then((data) => {
       pantry = data;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
     });
-
+  } catch (error) {
+    console.error("Error:", error);
+  }
 };
 
 
 const autocomplete = (text) => {
-
   let search = [];
-
   const filteredArray = pantry.filter(item => item.project.includes(text));
-
   filteredArray.slice(0, 10).forEach((item) => {
     search.push(item.project);
   });
-
   return search;
-}
+};
 
 var toastCounter = 0;
 const createToast = (text) => {
@@ -85,4 +80,4 @@ const createToast = (text) => {
   $('#toasts').append(html);
   $(`#toast-${toastCounter}`).toast('show');
   toastCounter++;
-}
+};
