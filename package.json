@@ -32,7 +32,7 @@
   "dependencies": {
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.10.5",
-    "electron-squirrel-startup": "^1.0.0",
+    "electron-squirrel-startup": "^1.0.1",
     "jquery": "^3.7.1",
     "pkgx-pantry": "^1.0.0"
   }
