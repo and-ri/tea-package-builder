@@ -27,7 +27,7 @@
     "@electron-forge/maker-zip": "^7.4.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
-    "electron": "^30.0.1"
+    "electron": "^31.0.1"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",
